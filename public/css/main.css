@@ -1,0 +1,82 @@
+body {
+    background: #f5f9fc !important;
+}
+
+.border-dashed{
+
+    border: 1px dashed rgba(0,0,0,.125) !important;
+
+}
+
+.card-hover{
+
+    transition: 0.5s;
+
+}
+
+.card-hover:hover{
+
+    transition: 0.5s;
+    background-color: #f5f9fc !important;
+
+}
+
+.card-footer-transparent{
+
+    background-color: transparent !important;
+
+}
+
+.border-left-dashed{
+
+    border-left: 1px dashed #dee2e6 !important;
+
+}
+
+.btn-default{
+    color: #fff;
+    background-color: #5D9AEA;
+    border-color: #4E91E8;
+}
+
+.btn-default:hover{
+    color: #fff;
+    background-color: #4E91E8;
+    border-color: #5D9AEA;
+}
+.progress-bar {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #4E91E8;
+    transition: width .6s ease;
+}
+
+.border-dashed-default{
+
+    border: 4px dashed #5D9AEA;
+
+}
+
+.btn-dashed{
+    color: #333333;
+    background-color: transparent;
+    border: 1px dashed #dee2e6 !important;
+}
+
+.btn-dashed:hover{
+    color: #333333;
+    background-color: #dee2e6;
+    border: 1px dashed #dee2e6 !important;
+}
+
+.profile-header {
+    transform: translateY(5rem);
+}
