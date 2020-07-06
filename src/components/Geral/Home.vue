@@ -18,7 +18,7 @@
 
         <p>
 
-            A aplicação esta em estágio beta... Iconsistências podem ser apresentadas e ainda existe alguns recursos em implementação
+            A aplicação esta em estágio beta... Inconsistências podem ser apresentadas e ainda recursos em implementação
 
         </p>
 

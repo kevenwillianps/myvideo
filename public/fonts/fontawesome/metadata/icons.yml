@@ -9948,7 +9948,7 @@ highlighter:
   changes:
     - 5.1.0
     - 5.10.1
-  label: Highlighter
+  label: highlighter
   search:
     terms:
       - edit
@@ -10180,7 +10180,7 @@ hospital-symbol:
 hospital-user:
   changes:
     - 5.7.0
-  label: Hospital with User
+  label: Hospital with user
   search:
     terms:
       - covid-19
@@ -10340,7 +10340,7 @@ house-damage:
 house-user:
   changes:
     - 5.13.0
-  label: House User
+  label: House user
   search:
     terms:
       - covid-19
@@ -15891,7 +15891,7 @@ search:
   changes:
     - '1'
     - 5.0.0
-  label: Search
+  label: search
   search:
     terms:
       - bigger
@@ -15907,7 +15907,7 @@ search:
 search-dollar:
   changes:
     - 5.3.0
-  label: Search Dollar
+  label: search Dollar
   search:
     terms:
       - bigger
@@ -15924,7 +15924,7 @@ search-dollar:
 search-location:
   changes:
     - 5.3.0
-  label: Search Location
+  label: search Location
   search:
     terms:
       - bigger
@@ -15942,7 +15942,7 @@ search-minus:
     - '1'
     - 5.0.0
     - 5.0.13
-  label: Search Minus
+  label: search Minus
   search:
     terms:
       - minify
@@ -15958,7 +15958,7 @@ search-plus:
   changes:
     - '1'
     - 5.0.0
-  label: Search Plus
+  label: search Plus
   search:
     terms:
       - bigger
@@ -19841,7 +19841,7 @@ user:
     - 5.0.0
     - 5.0.3
     - 5.0.11
-  label: User
+  label: user
   search:
     terms:
       - account
@@ -19861,7 +19861,7 @@ user-alt:
     - 5.0.0
     - 5.0.3
     - 5.0.11
-  label: Alternate User
+  label: Alternate user
   search:
     terms:
       - account
@@ -19878,7 +19878,7 @@ user-alt:
 user-alt-slash:
   changes:
     - 5.0.11
-  label: Alternate User Slash
+  label: Alternate user Slash
   search:
     terms:
       - account
@@ -19895,7 +19895,7 @@ user-alt-slash:
 user-astronaut:
   changes:
     - 5.0.11
-  label: User Astronaut
+  label: user Astronaut
   search:
     terms:
       - avatar
@@ -19911,7 +19911,7 @@ user-astronaut:
 user-check:
   changes:
     - 5.0.11
-  label: User Check
+  label: user Check
   search:
     terms:
       - accept
@@ -19930,7 +19930,7 @@ user-circle:
     - 5.0.11
     - 5.11.0
     - 5.11.1
-  label: User Circle
+  label: user Circle
   search:
     terms:
       - account
@@ -19948,7 +19948,7 @@ user-circle:
 user-clock:
   changes:
     - 5.0.11
-  label: User Clock
+  label: user Clock
   search:
     terms:
       - alert
@@ -19962,7 +19962,7 @@ user-clock:
 user-cog:
   changes:
     - 5.0.11
-  label: User Cog
+  label: user Cog
   search:
     terms:
       - admin
@@ -19976,7 +19976,7 @@ user-cog:
 user-edit:
   changes:
     - 5.0.11
-  label: User Edit
+  label: user Edit
   search:
     terms:
       - edit
@@ -19992,7 +19992,7 @@ user-edit:
 user-friends:
   changes:
     - 5.0.11
-  label: User Friends
+  label: user Friends
   search:
     terms:
       - group
@@ -20007,7 +20007,7 @@ user-friends:
 user-graduate:
   changes:
     - 5.0.11
-  label: User Graduate
+  label: user Graduate
   search:
     terms:
       - cap
@@ -20024,7 +20024,7 @@ user-graduate:
 user-injured:
   changes:
     - 5.4.0
-  label: User Injured
+  label: user Injured
   search:
     terms:
       - cast
@@ -20041,7 +20041,7 @@ user-lock:
   changes:
     - 5.0.11
     - 5.9.0
-  label: User Lock
+  label: user Lock
   search:
     terms:
       - admin
@@ -20078,7 +20078,7 @@ user-md:
 user-minus:
   changes:
     - 5.0.11
-  label: User Minus
+  label: user Minus
   search:
     terms:
       - delete
@@ -20091,7 +20091,7 @@ user-minus:
 user-ninja:
   changes:
     - 5.0.11
-  label: User Ninja
+  label: user Ninja
   search:
     terms:
       - assassin
@@ -20125,7 +20125,7 @@ user-plus:
     - 5.0.0
     - 5.0.3
     - 5.0.11
-  label: User Plus
+  label: user Plus
   search:
     terms:
       - add
@@ -20144,7 +20144,7 @@ user-secret:
     - 5.0.0
     - 5.0.3
     - 5.0.11
-  label: User Secret
+  label: user Secret
   search:
     terms:
       - clothing
@@ -20162,7 +20162,7 @@ user-secret:
 user-shield:
   changes:
     - 5.0.11
-  label: User Shield
+  label: user Shield
   search:
     terms:
       - admin
@@ -20177,7 +20177,7 @@ user-shield:
 user-slash:
   changes:
     - 5.0.11
-  label: User Slash
+  label: user Slash
   search:
     terms:
       - ban
@@ -20190,7 +20190,7 @@ user-slash:
 user-tag:
   changes:
     - 5.0.11
-  label: User Tag
+  label: user Tag
   search:
     terms:
       - avatar
@@ -20206,7 +20206,7 @@ user-tag:
 user-tie:
   changes:
     - 5.0.11
-  label: User Tie
+  label: user Tie
   search:
     terms:
       - avatar
@@ -20225,7 +20225,7 @@ user-times:
     - 5.0.0
     - 5.0.3
     - 5.0.11
-  label: Remove User
+  label: Remove user
   search:
     terms:
       - archive

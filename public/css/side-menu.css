@@ -1,35 +1,3 @@
-/*
-    DEMO STYLE
-*/
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-a,
-a:hover,
-a:focus {
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.navbar {
-    padding: 15px 10px;
-    background: #4E91E8;
-    border: none;
-    border-radius: 0;
-}
-
-.navbar-btn {
-    box-shadow: none;
-    outline: none !important;
-    border: none;
-}
-
-.line {
-    width: 100%;
-    height: 1px;
-    border-bottom: 1px dashed #3D86E6;
-    margin: 40px 0;
-}
-
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -41,11 +9,8 @@ a:focus {
 }
 
 #sidebar {
-    font-family: 'Poppins', sans-serif !important;
-    min-width: 250px;
-    max-width: 250px;
-    background: #6FA5EC;
-    color: #FFFFFF;
+    background: #4E91E8;
+    color: #fff;
     transition: all 0.3s;
 }
 
@@ -55,18 +20,18 @@ a:focus {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background-color: #5D9AEA;
-    color: #ffffff;
-    border-bottom: dashed 3px #ffffff;
+    background: #2678E3;
+    border-bottom: dashed 4px #ffffff;
 }
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: dashed 3px #ffffff;
+    border-bottom: 1px solid #2678E3;
+    border-bottom: dashed 4px #ffffff;
 }
 
 #sidebar ul p {
-    color: #FFFFFF;
+    color: #fff;
     padding: 10px;
 }
 
@@ -77,14 +42,13 @@ a:focus {
 }
 
 #sidebar ul li a:hover {
-    color: #ffffff;
-    background: #5D9AEA;
+    color: #4E91E8;
+    background: #fff;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #5D9AEA;
 }
 
 a[data-toggle="collapse"] {
@@ -102,8 +66,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #81B0EF;
-    color: #ffffff;
+    background: #4E91E8;
 }
 
 ul.CTAs {
@@ -120,19 +83,13 @@ ul.CTAs a {
 
 a.download {
     background: #fff;
-    color: #5D9AEA;
+    color: #2678E3;
 }
 
-a.article{
-
-    background: #5D9AEA !important;
-    color: #fff !important;
-
-}
-
+a.article,
 a.article:hover {
-    background: rgba(255, 255, 255, 255) !important;
-    color: #5D9AEA !important;
+    background: #2678E3 !important;
+    color: #fff !important;
 }
 
 /* ---------------------------------------------------
@@ -141,7 +98,6 @@ a.article:hover {
 
 #content {
     width: 100%;
-    padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
 }
@@ -151,9 +107,6 @@ a.article:hover {
 ----------------------------------------------------- */
 
 @media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
     #sidebar.active {
         margin-left: 0;
     }

@@ -1,184 +1,243 @@
+/** Importação de componentes 'Geral' **/
 import Home from './components/Geral/Home';
 
-/** Importo o componente da inicial: "Home" **/
+/** Importação dos componentes 'Users' **/
 import UsersDatagrid from './components/Users/UsersDatagrid';
-import UsersForm     from './components/Users/UsersForm';
-import UsersDetails  from './components/Users/UsersDetails';
+import UsersDetails from './components/Users/UsersDetails';
+import UsersForm from './components/Users/UsersForm';
 
-/** Componente do: 'CategoriaDeConteudo' **/
+/** Importação dos componentes 'content_category' **/
 import ContentCategoryDatagrid from './components/ContentCategory/ContentCategoryDatagrid';
-import ContentCategoryForm     from './components/ContentCategory/ContentCategoryForm';
+import ContentCategoryForm from './components/ContentCategory/ContentCategoryForm';
 
-/** Componente do: 'Conteúdo' **/
+/** Importação dos componentes 'content' **/
 import ContentDatagrid from './components/Content/ContentDatagrid';
-import ContentForm     from './components/Content/ContentForm';
+import ContentForm from './components/Content/ContentForm';
 
-/** Componente do: 'COnteúdoVinculado' **/
-import ContentSubDatagrid         from './components/ContentSub/ContentSubDatagrid';
-import ContentSubForm             from './components/ContentSub/ContentSubForm';
-import ContentSubDetails          from './components/ContentSub/ContentSubDetails';
+/** Importação dos componentes 'content_sub' **/
+import ContentSubDatagrid from './components/ContentSub/ContentSubDatagrid';
+import ContentSubForm from './components/ContentSub/ContentSubForm';
+import ContentSubDetails from './components/ContentSub/ContentSubDetails';
 import ContentSubDetailsAuxiliary from './components/ContentSub/ContentSubDetailsAuxiliary';
 
-/** Componente do: 'ConteúdoSubAuxiliar' **/
+/** Importação dos componentes 'content_sub_auxiliary' **/
 import ContentSubAuxiliaryDatagrid from './components/ContentSubAuxiliary/ContentSubAuxiliaryDatagrid';
-import ContentSubAuxiliaryForm     from './components/ContentSubAuxiliary/ContentSubAuxiliaryForm';
 
-import SituationDatagrid           from './components/Situation/SituationDatagrid';
-import HighlighterDatagrid         from './components/Highlighter/HighlighterDatagrid';
-import UserFunctionDatagrid        from './components/UserFunction/UserFunctionDatagrid';
+/** Importação dos componentes 'situation' **/
+import SituationDatagrid from './components/Situation/SituationDatagrid';
+import SituationForm from './components/Situation/SituationForm';
 
-import AdventureDatagrid        from './components/Adventure/AdventureDatagrid';
+/** Importação dos componentes 'highlighter' **/
+import HighlighterDatagrid from './components/Highlighter/HighlighterDatagrid';
+import HighlighterForm from './components/Highlighter/HighlighterForm';
+
+/** Importação dos componentes 'user_function' **/
+import UserFunctionDatagrid from './components/UserFunction/UserFunctionDatagrid';
+import UserFunctionForm from './components/UserFunction/UserFunctionForm';
+
+/** Importação dos componentes 'ADventure' **/
+import AdventureDatagrid from './components/Adventure/AdventureDatagrid';
+
+/** Importação dos componentes 'ADventure' **/
+import SearchDatagrid from './components/Search/SearchDatagrid';
+import SearchDatagridAuxiliary from './components/Search/SearchDatagridAuxiliary';
 
 const routes = [
 
     {
 
-        path      : '/',
-        component : Home,
-        name      : 'home',
-
-    },
-    {
-
-        path      : '/content-datagrid/:user_id/:user_function_id',
-        component : ContentDatagrid,
-        name      : 'content-datagrid',
+        /** Página Inicial **/
+        path: '/',
+        component: Home,
+        name: 'home',
 
     },
 
     {
 
-        path      : '/users-datagrid/:user_id/:user_function_id',
-        component : UsersDatagrid,
-        name      : 'users-datagrid',
+        /** Listagem de Conteúdo **/
+        path: '/content-datagrid/:user_id/:user_function_id',
+        component: ContentDatagrid,
+        name: 'content-datagrid',
+
+    },
+    {
+
+        /** Listagem de Conteúdo **/
+        path: '/content-form/:user_id/:user_function_id/:content_id',
+        component: ContentForm,
+        name: 'content-form',
 
     },
 
     {
 
-        path      : '/users-form/',
-        component : UsersForm,
-        name      : 'users-form',
+        /** Listagem de SubConteúdos **/
+        path: '/content-sub-datagrid/:user_id/:user_function_id/:content_id',
+        component: ContentSubDatagrid,
+        name: 'content-sub-datagrid',
 
     },
 
     {
 
-        path      : '/users-details/:user_id/:user_function_id',
-        component : UsersDetails,
-        name      : 'users-details',
+        /** Listagem de SubConteúdos **/
+        path: '/content-sub-form/:user_id/:user_function_id/:content_id/:content_sub_id',
+        component: ContentSubForm,
+        name: 'content-sub-form',
 
     },
 
     {
 
-        path      : '/content-category-datagrid/:user_id/:user_function_id',
-        component : ContentCategoryDatagrid,
-        name      : 'content-category-datagrid',
+        /** Destalhes de Um SubConteúdo **/
+        path: '/content-sub-details/:user_id/:user_function_id/:content_id/:content_sub_id',
+        component: ContentSubDetails,
+        name: 'content-sub-details',
 
     },
 
     {
 
-        path      : '/content-category-form/',
-        component : ContentCategoryForm,
-        name      : 'content-category-form',
+        /** Detalhes de um SunConteúdoAuxiliar **/
+        path: '/content-sub-details-auxiliary/:user_id/:user_function_id/:content_id/:content_sub_id',
+        component: ContentSubDetailsAuxiliary,
+        name: 'content-sub-details-auxiliary',
 
     },
 
     {
 
-        path      : '/content-form/',
-        component : ContentForm,
-        name      : 'content-form',
+        /** Listagem de SubConteúdoAuxiliar **/
+        path: '/content-sub-auxiliary-datagrid/:content_id/:content_sub_id',
+        component: ContentSubAuxiliaryDatagrid,
+        name: 'content-sub-auxiliary-datagrid',
 
     },
 
     {
 
-        path      : '/content-edit-form/:content_id',
-        component : ContentForm,
-        name      : 'content-edit-form',
+        /** Listagem de Usuários **/
+        path: '/users-datagrid/:user_id/:user_function_id',
+        component: UsersDatagrid,
+        name: 'users-datagrid',
 
     },
 
     {
 
-        path      : '/content-sub-datagrid/:user_id/:user_function_id/:content_id',
-        component : ContentSubDatagrid,
-        name      : 'content-sub-datagrid',
+        /** Listagem de Usuários **/
+        path: '/users-form/:user_id/:user_function_id',
+        component: UsersForm,
+        name: 'users-form',
 
     },
 
     {
 
-        path      : '/content-sub-form/:content_id',
-        component : ContentSubForm,
-        name      : 'content-sub-form',
+        /** Detalhes de um Usuário **/
+        path: '/users-details/:user_id/:user_function_id',
+        component: UsersDetails,
+        name: 'users-details',
 
     },
 
     {
 
-        path      : '/content-sub-details/:user_id/:user_function_id/:content_id/:content_sub_id',
-        component : ContentSubDetails,
-        name      : 'content-sub-details',
+        /** Listagem de Categoria de Conteúdo **/
+        path: '/content-category-datagrid/:user_id/:user_function_id',
+        component: ContentCategoryDatagrid,
+        name: 'content-category-datagrid',
 
     },
 
     {
 
-        path      : '/content-sub-details-auxiliary/:user_id/:user_function_id/:content_id/:content_sub_id',
-        component : ContentSubDetailsAuxiliary,
-        name      : 'content-sub-details-auxiliary',
+        /** Listagem de Categoria de Conteúdo **/
+        path: '/content-category-form/:user_id/:user_function_id/:content_category_id',
+        component: ContentCategoryForm,
+        name: 'content-category-form',
 
     },
 
     {
 
-        path      : '/content-sub-auxiliary-form/:content_id/:content_sub_id',
-        component : ContentSubAuxiliaryForm,
-        name      : 'content-sub-auxiliary-form',
+        /** Listagem de Situações **/
+        path: '/situation-datagrid/:user_id/:user_function_id',
+        component: SituationDatagrid,
+        name: 'situation-datagrid',
 
     },
 
     {
 
-        path      : '/content-sub-auxiliary-datagrid/:content_id/:content_sub_id',
-        component : ContentSubAuxiliaryDatagrid,
-        name      : 'content-sub-auxiliary-datagrid',
+        /** Listagem de Situações **/
+        path: '/situation-form/:user_id/:user_function_id/:situation_id',
+        component: SituationForm,
+        name: 'situation-form',
 
     },
 
     {
 
-        path      : '/situation-datagrid/:user_id/:user_function_id',
-        component : SituationDatagrid,
-        name      : 'situation-datagrid',
+        /** Listagem de Marcadores **/
+        path: '/highlighter-datagrid/:user_id/:user_function_id',
+        component: HighlighterDatagrid,
+        name: 'highlighter-datagrid',
 
     },
 
     {
 
-        path      : '/highlighter-datagrid/:user_id/:user_function_id',
-        component : HighlighterDatagrid,
-        name      : 'highlighter-datagrid',
+        /** Listagem de Marcadores **/
+        path: '/highlighter-form/:user_id/:user_function_id/:highlighter_id',
+        component: HighlighterForm,
+        name: 'highlighter-form',
 
     },
 
     {
 
-        path      : '/user-function-datagrid/:user_id/:user_function_id',
-        component : UserFunctionDatagrid,
-        name      : 'user-function-datagrid',
+        /** Listagem de Funções de Usuário **/
+        path: '/user-function-datagrid/:user_id/:user_function_id',
+        component: UserFunctionDatagrid,
+        name: 'user-function-datagrid',
 
     },
 
     {
 
-        path      : '/adventure-datagrid/:user_id/:user_function_id',
-        component : AdventureDatagrid,
-        name      : 'adventure-datagrid',
+        /** Listagem de Funções de Usuário **/
+        path: '/user-function-form/:user_id/:user_function_id',
+        component: UserFunctionForm,
+        name: 'user-function-form',
+
+    },
+
+    {
+
+        /** Explorar **/
+        path: '/adventure-datagrid/:user_id/:user_function_id',
+        component: AdventureDatagrid,
+        name: 'adventure-datagrid',
+
+    },
+
+    {
+
+        /** Explorar **/
+        path: '/search-datagrid/:user_id/:user_function_id/:search',
+        component: SearchDatagrid,
+        name: 'search-datagrid',
+
+    },
+
+    {
+
+        /** Explorar **/
+        path: '/search-datagrid-auxiliary/:user_id/:user_function_id/:search',
+        component: SearchDatagridAuxiliary,
+        name: 'search-datagrid-auxiliary',
 
     },
 

@@ -4,7 +4,6 @@
 
         <div class="container mt-3">
 
-            <!-- Exibe a barra de progresso quando for verdadeiro-->
             <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
 
                 <div class="card shadow-sm">
@@ -53,7 +52,7 @@
 
                    <div class="card-body">
 
-                       <i class="fas fa-rocket" style="font-size: 1.4rem"></i>
+                       <img src="image/logo.png" width="30" class="d-inline-block align-top" alt="Softwiki Suporte Tecnlógico - Myvideo">
 
                        <h5 class="card-title mt-2">
 
@@ -75,7 +74,7 @@
 
                        <div class="form-group">
 
-                           <input type="password" class="form-control" placeholder="Senha" v-model="inputs.password">
+                           <input type="password" class="form-control" placeholder="Senha" v-model="inputs.password" v-on:keydown.enter="Access()">
 
                        </div>
 
@@ -103,43 +102,46 @@
 
 <script type="text/ecmascript-6">
 
-    import axios    from 'axios'
+    /** Importação de componentes **/
+    import axios from 'axios'
     import Progress from '../Geral/Progress';
 
     export default {
 
+        /** Nome do componente atual **/
         name: "Login",
 
-        components : {
+        /** Declaração de componentes **/
+        components: {
 
             Progress
 
         },
 
-        data(){
+        data() {
 
             return {
 
-                form : {
+                form: {
 
-                    progress_bar : false,
-                    class        : null,
-                    show_form    : false,
-                    progressBar  : 0,
-
-                },
-
-                inputs : {
-
-                    email    : null,
-                    password : null,
+                    progress_bar: false,
+                    class: null,
+                    show_form: false,
+                    progressBar: 0,
 
                 },
 
-                alert : {
+                inputs: {
 
-                    class   : null,
-                    message : null,
+                    email: null,
+                    password: null,
+
+                },
+
+                alert: {
+
+                    class: null,
+                    message: null,
 
                 }
 
@@ -147,9 +149,9 @@
 
         },
 
-        methods : {
+        methods: {
 
-            Access(){
+            Access() {
 
                 /** Limpo o Alerta **/
                 this.alert.message = null;
@@ -157,11 +159,13 @@
                 /** Habilito minha barra de progresso **/
                 this.form.progress_bar = true;
 
-                axios.post('router.php?TABLE=USER&ACTION=ACCESS', {inputs : this.inputs})
+                axios.post('router.php?TABLE=USER&ACTION=USER_ACCESS', {
+                    inputs: this.inputs
+                })
 
                     .then(response => {
 
-                        switch (response.data.cod){
+                        switch (response.data.cod) {
 
                             /** Usuário Localizado **/
                             case 1:
@@ -171,7 +175,7 @@
 
                             /** Usuário Não Localizado **/
                             case 404:
-                                this.alert.class   = 'alert-warning';
+                                this.alert.class = 'alert-warning';
                                 this.alert.message = response.data.message;
                                 /** Desabilito minha barra de progresso **/
                                 this.form.progress_bar = false;
@@ -179,7 +183,7 @@
 
                             /** Dados Não Preenchidos **/
                             case 405:
-                                this.alert.class   = 'alert-danger';
+                                this.alert.class = 'alert-danger';
                                 this.alert.message = response.data.message;
                                 /** Desabilito minha barra de progresso **/
                                 this.form.progress_bar = false;
@@ -199,8 +203,10 @@
 
         },
 
-        created(){
+        /** Métodos executados quando o componente for montado **/
+        mounted() {
 
+            /** Informo que o componente foi montado com sucesso **/
             console.log("Componente 'Login', montado com sucesso");
 
         },

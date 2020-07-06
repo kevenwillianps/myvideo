@@ -17,8 +17,8 @@
 
 .fake-btn {
     color: #ffffff;
-    background-color: #5D9AEA;
-    border: 1px solid #4E91E8;
+    background-color: #1a212f;
+    border: 1px solid #252e40;
     border-radius: 3px;
     padding: 8px 15px;
     text-transform: uppercase;
@@ -27,7 +27,7 @@
 
 .file-drop-area:hover .fake-btn {
     transition: 0.5s;
-    background-color: #4E91E8;
+    background-color: #252e40;
 }
 
 .file-msg {

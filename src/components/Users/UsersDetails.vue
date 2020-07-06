@@ -10,7 +10,6 @@
 
         <ModalConfirm title="Atenção!" message="Deseja excluir este registro ?" v-on:ConfirmRequest="Delete"></ModalConfirm>
 
-        <!-- Exibe a barra de progresso quando for verdadeiro-->
         <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
 
             <div class="card shadow-sm">
@@ -25,7 +24,6 @@
 
         </div>
 
-        <!-- Se não Localizar registros, mostra um alerta -->
         <div class="mt-3 animate animate__fadeIn" v-else-if="query.result <= 0">
 
             <AlertInfo message="Não foram localizados registros"></AlertInfo>
@@ -40,11 +38,17 @@
 
                     <div class="profile mr-3">
 
-                        <img v-bind:src="query.result.file_path + '/' + query.result.file_name" v-bind:alt="query.result.file_name" width="230" class="rounded mb-2 img-thumbnail">
+                        <img v-bind:src="query.result_user.file_path + '/' + query.result_user.file_name" v-bind:alt="query.result_user.file_name" width="230" class="rounded mb-2 img-thumbnail">
 
-                        <a type="button" class="btn btn-primary btn-sm btn-block text-white" v-on:click="Form(query.result.user_id)">
+                        <a type="button" class="btn btn-primary btn-sm btn-block text-white" v-on:click="EditForm(query.result_user.user_name, query.result_user.user_email)" v-if="!form.show_form">
 
                             Editar
+
+                        </a>
+
+                        <a type="button" class="btn btn-danger btn-sm btn-block text-white" v-on:click="ShowForm()" v-else>
+
+                            Cancelar
 
                         </a>
 
@@ -54,13 +58,13 @@
 
                         <h4 class="mt-0 mb-0">
 
-                            {{ query.result.user_name }}
+                            {{ query.result_user.user_name }}
 
                         </h4>
 
                         <p class="small mb-4"> <i class="fa fa-map-marker mr-2"></i>
 
-                            {{ query.result.user_function }}
+                            {{ query.result_user.user_function }}
 
                         </p>
 
@@ -78,13 +82,13 @@
 
                         <h5 class="font-weight-bold mb-0 d-block">
 
-                            {{ query.result.quantity_content }}
+                            {{ query.result_user.quantity_content }}
 
                         </h5>
 
                         <small class="text-muted">
 
-                            <i class="fa fa-picture-o mr-1"></i>Publicações Principais
+                            <i class="fa fa-picture-o mr-1"></i>Playlits
 
                         </small>
 
@@ -94,13 +98,13 @@
 
                         <h5 class="font-weight-bold mb-0 d-block">
 
-                            {{ query.result.quantity_content_sub }}
+                            {{ query.result_user.quantity_content_sub }}
 
                         </h5>
 
                         <small class="text-muted">
 
-                            <i class="fa fa-user-circle-o mr-1"></i>Publicações Secundárias
+                            <i class="fa fa-user-circle-o mr-1"></i>Publicações
 
                         </small>
 
@@ -128,7 +132,7 @@
 
                                             <div class="row">
 
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
 
                                                     <div class="form-group">
 
@@ -138,17 +142,7 @@
 
                                                 </div>
 
-                                                <div class="col-md-4">
-
-                                                    <div class="form-group">
-
-                                                        <input type="date" class="form-control" placeholder="Data de Nascimento" v-model="inputs.date_birth">
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
 
                                                     <div class="form-group">
 
@@ -198,7 +192,7 @@
 
                                                                 <h3 class="mt-0">
 
-                                                                    {{ inputs_file.name }}
+                                                                    {{ inputs_file.name_auxiliary }}
 
                                                                 </h3>
 
@@ -222,13 +216,7 @@
 
                                         <div class="col-md-12 text-right mt-3">
 
-                                            <button class="btn btn-default mr-1" v-on:click="ShowForm()">
-
-                                                <i class="fas fa-window-close mr-1"></i> Cancelar
-
-                                            </button>
-
-                                            <button class="btn btn-default" v-on:click="Save()" v-if="inputs.name && inputs.date_birth && inputs.email">
+                                            <button class="btn btn-default" v-on:click="Save()" v-if="inputs.name && inputs.email">
 
                                                 <i class="fas fa-paper-plane"></i> Salvar
 
@@ -260,7 +248,7 @@
 
                     <h5 class="mb-0">
 
-                        Publicações
+                        Palylists
 
                     </h5>
 
@@ -290,33 +278,25 @@
 
                                 </div>
 
-                                <div class="media mt-2">
+                                <h4 class="mb-0 card-title">
 
-                                    <div class="media-body">
+                                    <strong>
 
-                                        <h4 class="mb-0">
+                                        {{ result.title }}
 
-                                            <strong>
+                                    </strong>
 
-                                                {{ result.title }}
+                                </h4>
 
-                                            </strong>
+                                <div class="mt-1">
 
-                                        </h4>
-
-                                        <div class="mt-1">
-
-                                            <span class="text-muted"><i class="fas fa-hashtag mr-1"></i>{{ result.content_id }}</span> - <span class="text-muted"><i class="far fa-clock mr-1"></i> {{ result.date_register }}</span> - <span class="text-muted">{{ result.user_name }}</span> - <span class="text-muted">{{ result.user_function }}</span>
-
-                                        </div>
-
-                                    </div>
+                                    <span class="text-muted"><i class="fas fa-hashtag mr-1"></i>{{ result.content_id }}</span> - <span class="text-muted"><i class="far fa-clock mr-1"></i> {{ result.date_register }}</span> - <span class="text-muted">{{ result.user_name }}</span> - <span class="text-muted">{{ result.user_function }}</span>
 
                                 </div>
 
                             </div>
 
-                            <nav class="navbar navbar-expand-lg navbar-light bg-light card-footer card-footer-transparent">
+                            <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer">
 
                                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 
@@ -350,9 +330,95 @@
 
                 </div>
 
+                <div class="d-flex align-items-center justify-content-between mb-3">
+
+                    <h5 class="mb-0">
+
+                        Publicações
+
+                    </h5>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3 mb-4" v-for="(result, index) in query.result_content_sub" v-bind:key="index">
+
+                        <div class="card shadow-sm">
+
+                            <div class="card-body">
+
+                                <div class="d-flex" v-if="result.file_name && result.file_type === 'video/mp4'">
+
+                                    <video width="100%" controls class="mx-auto my-auto rounded border-dashed">
+
+                                        <source v-bind:src="result.file_path + '/' + result.file_name" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="d-flex" v-else-if="result.file_name">
+
+                                    <img v-bind:src="result.file_path + '/' + result.file_name" class="img-fluid mx-auto my-auto rounded border-dashed" v-bind:alt="result.file_name">
+
+                                </div>
+
+                                <h4 class="mb-0 card-title">
+
+                                    <strong>
+
+                                        {{ result.title }}
+
+                                    </strong>
+
+                                </h4>
+
+                                <div class="mt-1">
+
+                                    <span class="text-muted"><i class="fas fa-hashtag mr-1"></i>{{ result.content_id }}</span> - <span class="text-muted"><i class="far fa-clock mr-1"></i> {{ result.date_register }}</span> - <span class="text-muted">{{ result.user_name }}</span> - <span class="text-muted">{{ result.user_function }}</span>
+
+                                </div>
+
+                            </div>
+
+                            <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer">
+
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContentSub" aria-controls="navbarSupportedContentSub" aria-expanded="false" aria-label="Toggle navigation">
+
+                                    <span class="navbar-toggler-icon"></span>
+
+                                </button>
+
+                                <div class="collapse navbar-collapse" id="navbarSupportedContentSub">
+
+                                    <ul class="navbar-nav mr-auto">
+
+                                        <li class="nav-item">
+
+                                            <router-link v-bind:to="{name : 'content-sub-details', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : result.content_id, content_sub_id : result.content_sub_id}}" class="nav-link">
+
+                                                <i class="far fa-eye mr-1"></i>Ver
+
+                                            </router-link>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </nav>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
-        </div><!-- End profile widget -->
+        </div>
 
     </div>
 
@@ -360,68 +426,69 @@
 
 <script type="text/ecmascript-6">
 
-    import axios        from 'axios';
-    import AlertInfo    from '../Geral/AlertInfo';
-    import Progress     from '../Geral/Progress';
+    import axios from 'axios';
+    import AlertInfo from '../Geral/AlertInfo';
+    import Progress from '../Geral/Progress';
     import ModalConfirm from '../Geral/ModalConfirm';
 
     export default {
 
         name: "UsersDetails",
 
-        data (){
+        data() {
 
             return {
 
                 /** Controle do HTML **/
-                form : {
+                form: {
 
-                    progress_bar : false,
-                    class        : null,
-                    show_form    : false,
-                    progressBar  : 0,
+                    progress_bar: false,
+                    class: null,
+                    show_form: false,
+                    progressBar: 0,
 
                 },
                 /** Grupo de variáveis que guarda os dados de consultas sql's **/
-                query : {
+                query: {
 
-                    result         : [],
-                    result_content : [],
-                    message        : null,
-                    user_functions : [],
+                    result_user: [],
+                    result_content: [],
+                    result_content_sub: [],
+                    user_functions: [],
 
                 },
                 /** Grupo de variáveis que guardar os dados dos campos do formulário **/
-                inputs : {
+                inputs: {
 
-                    user_id          : this.$route.params.user_id,
-                    user_function_id : null,
-                    situation_id     : null,
-                    name             : null,
-                    email            : null,
-                    date_birth       : null,
-                    access_first     : null,
-                    access_last      : null,
-                    access_log       : null,
-                    password         : null,
-                    date_register    : null,
+                    user_id: this.$route.params.user_id,
+                    user_function_id: null,
+                    situation_id: null,
+                    name: null,
+                    email: null,
+                    date_birth: null,
+                    access_first: null,
+                    access_last: null,
+                    access_log: null,
+                    password: null,
+                    date_register: null,
 
                 },
                 /** Grupo de variáveis que guardar os dados dos campos do arquivo **/
-                inputs_file : {
+                inputs_file: {
 
-                    name      : null,
-                    file      : null,
-                    part      : null,
-                    length    : 0,
-                    extension : null,
+                    name_auxiliary: null,
+                    name: null,
+                    file: null,
+                    part: null,
+                    length: 0,
+                    extension: null,
 
                 },
                 /** Dados da Seção **/
-                session : {
+                session: {
 
-                    user_id          : this.$route.params.user_id,
-                    user_function_id : this.$route.params.user_function_id,
+                    user_id: this.$route.params.user_id,
+                    user_function_id: this.$route.params.user_function_id,
 
                 },
 
@@ -429,7 +496,7 @@
 
         },
 
-        components : {
+        components: {
 
             Progress,
             AlertInfo,
@@ -437,16 +504,16 @@
 
         },
 
-        methods : {
+        methods: {
 
-            ShowForm(){
+            ShowForm() {
 
-                if(this.form.show_form){
+                if (this.form.show_form) {
 
                     this.form.show_form = false;
                     this.ResetForm();
 
-                }else{
+                } else {
 
                     this.form.show_form = true;
 
@@ -454,65 +521,68 @@
 
             },
 
-            ResetForm(){
+            ResetForm() {
 
-                this.inputs.user_id          = this.$route.params.user_id;
+                this.inputs.user_id = this.$route.params.user_id;
                 this.inputs.user_function_id = null;
-                this.inputs.situation_id     = null;
-                this.inputs.name             = null;
-                this.inputs.email            = null;
-                this.inputs.date_birth       = null;
-                this.inputs.access_first     = null;
-                this.inputs.access_last      = null;
-                this.inputs.access_log       = null;
-                this.inputs.password         = null;
-                this.inputs.date_register    = null;
-                this.inputs.date_update      = null;
-                this.form.show_form          = false;
-                this.form.progress_bar       = false;
+                this.inputs.situation_id = null;
+                this.inputs.name = null;
+                this.inputs.email = null;
+                this.inputs.date_birth = null;
+                this.inputs.access_first = null;
+                this.inputs.access_last = null;
+                this.inputs.access_log = null;
+                this.inputs.password = null;
+                this.inputs.date_register = null;
+                this.inputs.date_update = null;
+                this.form.show_form = false;
+                this.form.progress_bar = false;
 
             },
 
-            ResetFormFile(){
+            ResetFormFile() {
 
-                this.inputs_file.name       = null;
-                this.inputs_file.file       = null;
-                this.inputs_file.part       = null;
-                this.inputs_file.length     = 0;
-                this.inputs_file.extension  = null;
-                this.form.progressBar       = 0;
+                this.inputs_file.name_auxiliary = null;
+                this.inputs_file.name = null;
+                this.inputs_file.file = null;
+                this.inputs_file.part = null;
+                this.inputs_file.length = 0;
+                this.inputs_file.extension = null;
+                this.form.progressBar = 0;
 
             },
 
             /** Método para listar todos os registros **/
-            Save(){
+            Save() {
 
                 /** Habilito minha barra de progresso **/
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao servidor **/
-                axios.post('router.php?TABLE=USER&ACTION=SAVE', {inputs: this.inputs})
+                axios.post('router.php?TABLE=USER&ACTION=USER_SAVE', {
+                    inputs: this.inputs
+                })
 
                     /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Verifico a categoria do meu retorno **/
-                        switch (response.data.cod){
+                        switch (response.data.cod) {
 
                             case 1:
 
                                 window.setTimeout(() => {
 
-                                    if (this.inputs_file){
+                                    if (this.inputs_file) {
 
                                         this.inputs.user_id = response.data.user_id;
                                         this.PrepareForm();
 
-                                    }else{
+                                    } else {
 
                                         this.ResetForm();
                                         this.ResetFormFile();
-                                        this.GetUserProfile();
+                                        this.UserDetails();
 
                                     }
 
@@ -542,60 +612,25 @@
             },
 
             /** Listagem de Classes **/
-            GetUserProfile(){
+            UserDetails() {
 
                 /** Deixo a barra de progresso disponivel **/
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=USER&ACTION=GET_USER_PROFILE', {inputs: this.inputs})
+                axios.post('router.php?TABLE=USER&ACTION=USER_DETAILS', {
+
+                    inputs: this.inputs
+
+                })
 
                     /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Guardo minha resposta em uma váriavel **/
-                        this.query.result = response.data.result;
-
-                        /** Defino um delay no progresso **/
-                        setTimeout(() => {
-
-                            this.form.progress_bar = false;
-                            
-                            if (this.query.result.user_id > 0){
-
-                                this.GetUserContent(this.query.result.user_id);
-
-                            }
-
-                        }, 1000);
-
-                    })
-
-                    /** Caso tenha falha **/
-                    .catch(response => {
-
-                        console.log('Erro:' + response);
-
-                    });
-
-            },
-
-            /** Listagem de Classes **/
-            GetUserContent(user_id){
-
-                /** Deixo a barra de progresso disponivel **/
-                this.form.progress_bar = true;
-
-                this.inputs.user_id = user_id;
-
-                /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=CONTENT&ACTION=GET_USER_CONTENT', {inputs: this.inputs})
-
-                    /** Caso tenha sucesso **/
-                    .then(response => {
-
-                        /** Guardo minha resposta em uma váriavel **/
-                        this.query.result_content = response.data.result;
+                        this.query.result_user = response.data.result_user;
+                        this.query.result_content = response.data.result_content;
+                        this.query.result_content_sub = response.data.result_content_sub;
 
                         /** Defino um delay no progresso **/
                         setTimeout(() => {
@@ -616,47 +651,34 @@
             },
 
             /** Listagem de Classes **/
-            Form(user_id){
+            EditForm(name, email) {
 
                 /** Deixo a barra de progresso disponivel **/
                 this.form.progress_bar = true;
-                this.form.show_form    = false;
 
-                this.inputs.user_id = user_id;
+                /** Oculto o formulário **/
+                this.form.show_form = false;
 
-                /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=USER&ACTION=EDIT_FORM', {inputs: this.inputs})
+                window.setTimeout(() => {
 
-                /** Caso tenha sucesso **/
-                    .then(response => {
+                    this.inputs.name = name;
+                    this.inputs.email = email;
 
-                        /** Guardo minha resposta em uma váriavel **/
-                        this.inputs = response.data.result;
+                    /** Deixo a barra de progresso indisponivel **/
+                    this.form.progress_bar = false;
 
-                        /** Defino um delay no progresso **/
-                        setTimeout(() => {
+                    /** Mostro o formulário **/
+                    this.form.show_form = true;
 
-                            this.form.progress_bar = false;
-                            this.form.show_form = true;
-
-                        }, 1000);
-
-                    })
-
-                    /** Caso tenha falha **/
-                    .catch(response => {
-
-                        console.log('Erro:' + response);
-
-                    });
+                }, 1000);
 
             },
 
             /** Preparo o formulário para envio **/
-            async PrepareForm(){
+            async PrepareForm() {
 
                 /** Envio as requisições de acordo com o tamanho da array **/
-                for (let i = 0; i < this.inputs_file.length; i++){
+                for (let i = 0; i < this.inputs_file.length; i++) {
 
                     await this.SendForm(this.inputs.user_id, this.inputs.situation_id, this.inputs_file.name, i, this.inputs_file.file[i], this.inputs_file.length, this.inputs_file.extension)
 
@@ -670,19 +692,29 @@
 
                 this.ResetForm();
                 this.ResetFormFile();
-                this.GetUserProfile();
+                this.UserDetails();
 
             },
 
             /** Envio uma requisição para o servidor **/
-            SendForm : async (user_id, situation_id, name, pointer, part, length, extension) => {
+            SendForm: async(user_id, situation_id, name, pointer, part, length, extension) => {
 
-                return axios.post('router.php?TABLE=USER_FILE&ACTION=SAVE', {inputs: {user_id : user_id, situation_id : situation_id, name : name, pointer : pointer, part : part, length : length, extension : extension}});
+                return axios.post('router.php?TABLE=USER_FILE&ACTION=USER_FILE_SAVE', {
+                    inputs: {
+                        user_id: user_id,
+                        situation_id: situation_id,
+                        name: name,
+                        pointer: pointer,
+                        part: part,
+                        length: length,
+                        extension: extension
+                    }
+                });
 
             },
 
             /** Calculo a barra de progresso **/
-            CalculateProgressBar(byteUploaded, length){
+            CalculateProgressBar(byteUploaded, length) {
 
                 this.form.progressBar = (byteUploaded * 100) / length;
 
@@ -697,7 +729,10 @@
                 fileReader.readAsDataURL(e.target.files[0]);
 
                 /** Pego o nome do arquivo **/
-                this.inputs_file.name      = e.target.files[0].name;
+                this.inputs_file.name_auxiliary = e.target.files[0].name;
+
+                /** Gero o nome que vai salvar no banco de dados **/
+                this.inputs_file.name = 'myvideo_' + (btoa(Math.random())) + '.' + (e.target.files[0].name.substring(e.target.files[0].name.indexOf(".") + 1));
 
                 /** Pego o tipo do arquivo **/
                 this.inputs_file.extension = e.target.files[0].type;
@@ -706,26 +741,26 @@
 
                     /** Particionar o base64 em Array **/
                     let localString = e.target.result.substring(e.target.result.indexOf(",") + 1);
-                    let start       = 0;
-                    let end         = 2097152;
-                    let localArray  = Array();
-                    let part        = null;
+                    let start = 0;
+                    let end = 2097152;
+                    let localArray = Array();
+                    let part = null;
 
                     /** Executo de acordo com o tamanho do base64 **/
-                    for (let i = 0; i < localString.length; i++){
+                    for (let i = 0; i < localString.length; i++) {
 
                         /** Preencho selecionando o que esta entre o valor inicial e final **/
                         part = localString.substring(start, end);
 
                         /** Verifico se cheguei ao final do base64, senão preencho as variáveis **/
-                        if (part && part !== null){
+                        if (part && part !== null) {
 
                             /** Coloca o trecho do base64 na última posição da array **/
                             localArray.push(part);
 
                             /** Crio um novo intervalo de valores **/
                             start = end;
-                            end   = end + 2097152;
+                            end = end + 2097152;
 
                         }
 
@@ -735,7 +770,7 @@
                     this.inputs_file.length = localArray.length;
 
                     /** Transfiro minha array **/
-                    this.inputs_file.file   = localArray;
+                    this.inputs_file.file = localArray;
 
                 };
 
@@ -743,9 +778,9 @@
 
         },
 
-        mounted(){
+        mounted() {
 
-            this.GetUserProfile();
+            this.UserDetails();
             console.log('Componente "UsersDetails", montado com sucesso!');
 
         }

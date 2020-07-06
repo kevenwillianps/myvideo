@@ -2,207 +2,132 @@
 
     <div>
 
-        <nav class="navbar navbar-light navbar-expand-md bg-light justify-content-center bg-white border-bottom-color shadow-sm border-top">
+        <h4>
+
+            <i class="far fa-folder-open mr-1"></i>Usuários
+
+        </h4>
+
+        <div class="card card-hover shadow-sm border border-dashed" v-if="session.user_function_id == 1">
 
             <div class="container">
 
-                <button class="navbar-toggler ml-1" type="button" data-toggle="collapse" data-target="#collapsingNavbar2">
+                <div class="media m-4">
 
-                    <span class="navbar-toggler-icon"></span>
+                    <div class="media-body">
 
-                </button>
+                        <h3 class="mb-0 text-center">
 
-                <div class="navbar-collapse collapse justify-content-between align-items-center w-100 animate animate__fadeIn" id="collapsingNavbar2">
+                            <strong>
 
-                    <ul class="navbar-nav mx-auto text-center">
+                                Cancelar publicação
 
-                        <li class="nav-item mr-3">
+                            </strong>
 
-                            <router-link to="/users-datagrid/" class="nav-link" href="#">
+                        </h3>
 
-                                <i class="fas fa-backward mr-1"></i>Voltar
+                        <h5 class="mt-2 text-center">
+
+                            <router-link v-bind:to="{name : 'users-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}" class="stretched-link text-decoration-none badge badge-light">
+
+                                Clique para cancelar
 
                             </router-link>
 
-                        </li>
+                        </h5>
 
-                    </ul>
-
-                </div>
-
-            </div>
-
-        </nav>
-
-        <div class="container">
-
-            <div class="card text-white text-center shadow-sm border-0 mt-3 background-gradient animate animate__fadeIn">
-
-                <div class="card-body">
-
-                    <h6 class="card-title mb-0">
-
-                        Formulário de
-
-                    </h6>
-
-                    <h3 class="mt-0">
-
-                        Usuário
-
-                    </h3>
+                    </div>
 
                 </div>
 
             </div>
 
-            <!-- Verifico se possui mensagens retornadas do banco de dados -->
-            <div v-if="query.message" class="mt-3 animate animate__fadeIn">
+        </div>
 
-                <AlertQuery v-bind:class_name="form.class" v-bind:message="query.message"></AlertQuery>
+        <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
 
-            </div>
-
-            <!-- Exibe a barra de progresso quando for verdadeiro-->
-            <div v-if="form.progress_bar" class="mt-3 animate animate__fadeIn">
-
-                <Progress percent="100"></Progress>
-
-            </div>
-
-            <div class="card shadow-sm animate animate__fadeIn mt-3" v-else>
+            <div class="card shadow-sm">
 
                 <div class="card-body">
 
-                    <div class="row">
+                    <Progress percent="100"></Progress>
 
-                        <div class="col-md-12" v-if="form.step === 1">
+                </div>
 
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+            </div>
 
-                                <strong>1º Parte:</strong> Dados Principais
+        </div>
 
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <div class="mt-3 card shadow-sm border-dashed animate animate__fadeIn" v-else>
 
-                                    <span aria-hidden="true">&times;</span>
+            <div class="card-body">
 
-                                </button>
+                <div class="media my-3">
 
-                            </div>
+                    <div class="media-body">
 
-                        </div>
+                        <div class="row">
 
-                        <div class="col-md-12" v-if="form.step === 1">
+                            <div class="col-md-12">
 
-                            <div class="row">
+                                <div class="row">
 
-                                <div class="col-md-6">
+                                    <div class="col-md-4">
 
-                                    <div class="form-group">
+                                        <div class="form-group">
 
-                                        <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name"/>
+                                            <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name">
 
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-6">
-
-                                    <div class="form-group">
-
-                                        <input type="email" class="form-control" placeholder="Email" v-model="inputs.email"/>
+                                        </div>
 
                                     </div>
 
-                                </div>
+                                    <div class="col-md-4">
 
-                                <div class="col-md-12">
+                                        <div class="form-group">
 
-                                    <div class="form-group">
+                                            <input type="date" class="form-control" placeholder="Data de Nascimento" v-model="inputs.date_birth">
 
-                                        <input type="date" class="form-control" placeholder="Data de Nascimento" v-model="inputs.date_birth"/>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-12" v-if="form.step === 1">
-
-                            <div class="form-group text-right">
-
-                                <button class="btn btn-primary" v-on:click="NextForm()" v-if="inputs.name">
-
-                                    Avançar
-
-                                </button>
-
-                                <button class="btn btn-primary disabled" v-else disabled>
-
-                                    Preencha todos os campos
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-12" v-if="form.step === 2">
-
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-
-                                <strong>1º Parte:</strong> Dados Principais
-
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-
-                                    <span aria-hidden="true">&times;</span>
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-12" v-if="form.step === 2">
-
-                            <div class="row">
-
-                                <div class="col-md-6">
-
-                                    <div class="form-group">
-
-                                        <select class="form-control custom-select" v-model="inputs.situation_id">
-
-                                            <option value="0" selected>Situação</option>
-                                            <option v-bind:value="result.situation_id" v-for="(result, index) in query.situations" v-bind:key="index">
-
-                                                {{ result.name }}
-
-                                            </option>
-
-                                        </select>
+                                        </div>
 
                                     </div>
 
-                                </div>
+                                    <div class="col-md-4">
 
-                                <div class="col-md-6">
+                                        <div class="form-group">
 
-                                    <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Senha" v-model="inputs.password">
 
-                                        <select class="form-control custom-select" v-model="inputs.user_function_id">
+                                        </div>
 
-                                            <option value="0" selected>Função</option>
-                                            <option v-bind:value="result.user_function_id" v-for="(result, index) in query.user_functions" v-bind:key="index">
+                                    </div>
 
-                                                {{ result.name }}
+                                    <div class="col-md-6">
 
-                                            </option>
+                                        <div class="form-group">
 
-                                        </select>
+                                            <input type="email" class="form-control" placeholder="Email" v-model="inputs.email">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <select class="form-control custom-select" v-model="inputs.user_function_id">
+
+                                                <option value="0" selected>Função</option>
+                                                <option v-bind:value="result.user_function_id" v-for="(result, index) in query.user_functions" v-bind:key="index">
+
+                                                    {{ result.name }}
+
+                                                </option>
+
+                                            </select>
+
+                                        </div>
 
                                     </div>
 
@@ -210,67 +135,47 @@
 
                             </div>
 
-                        </div>
+                            <div class="col-md-12">
 
-                        <div class="col-md-6" v-if="form.step === 2">
+                                <div class="form-group">
 
-                            <div class="form-group text-left">
+                                    <div class="border-dashed-default rounded">
 
-                                <button class="btn btn-primary" v-on:click="PrevForm()">
+                                        <div class="file-drop-area" v-if="!inputs_file.file">
 
-                                    Voltar
+                                                <span class="fake-btn mr-3">
 
-                                </button>
+                                                    Escolha a foto de perfil
 
-                            </div>
+                                                </span>
 
-                        </div>
+                                            <input class="file-input" type="file" v-on:change="onChange">
 
-                        <div class="col-md-6" v-if="form.step === 2">
+                                        </div>
 
-                            <div class="form-group text-right">
+                                        <div v-else>
 
-                                <button class="btn btn-primary" v-on:click="NextForm()" v-if="inputs.name">
+                                            <div class="media">
 
-                                    Avançar
+                                                <div class="media-body p-3">
 
-                                </button>
+                                                    <h3 class="mt-0">
 
-                                <button class="btn btn-primary disabled" v-else disabled>
+                                                        {{ inputs_file.name_auxiliary }}
 
-                                    Preencha todos os campos
+                                                    </h3>
 
-                                </button>
+                                                    <button class="btn btn-default" v-on:click="ResetFormFile()">
 
-                            </div>
+                                                        <i class="fas fa-eraser mr-1"></i> Remover Arquivo
 
-                        </div>
+                                                    </button>
 
-                        <div class="col-md-12" v-if="form.step === 3">
+                                                </div>
 
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                            </div>
 
-                                <strong>2º Parte:</strong> Dados Secundários
-
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-
-                                    <span aria-hidden="true">&times;</span>
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-12" v-if="form.step === 3">
-
-                            <div class="row">
-
-                                <div class="col-md-12">
-
-                                    <div class="form-group">
-
-                                        <input type="password" class="form-control" placeholder="Senha" v-model="inputs.password"/>
+                                        </div>
 
                                     </div>
 
@@ -278,35 +183,21 @@
 
                             </div>
 
-                        </div>
+                            <div class="col-md-12 text-right mt-3">
 
-                        <div class="col-md-6" v-if="form.step === 3">
+                                <button class="btn btn-default" v-on:click="Save()" v-if="inputs.name && inputs.date_birth && inputs.password && inputs.email && inputs.user_function_id">
 
-                            <div class="form-group text-left">
+                                    <i class="fas fa-paper-plane"></i> Salvar
 
-                                <button class="btn btn-primary" v-on:click="PrevForm()">
+                                </button>
 
-                                    Voltar
+                                <button class="btn btn-default disabled" v-else disabled>
+
+                                    <i class="fas fa-paper-plane"></i> Salvar
 
                                 </button>
 
                             </div>
-
-                        </div>
-
-                        <div class="col-md-6 text-right" v-if="form.step === 3">
-
-                            <button class="btn btn-primary" v-on:click="Save()" v-if="inputs.name && inputs.email && inputs.date_birth && inputs.password">
-
-                                <i class="fas fa-paper-plane-o"></i> Salvar
-
-                            </button>
-
-                            <button class="btn btn-primary disabled" v-else disabled>
-
-                                Preencha todos os campos
-
-                            </button>
 
                         </div>
 
@@ -324,30 +215,33 @@
 
 <script type="text/ecmascript-6">
 
-    import axios      from 'axios';
-    import Progress   from '../Geral/Progress'
-    import AlertQuery from '../Geral/AlertQuery';
+    /** Importação de componentes **/
+    import axios from 'axios';
+    import Progress from '../Geral/Progress';
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
     export default {
 
-        name: "ClassForm",
+        /** Nome do componente atual **/
+        name: "UsersForm",
 
-        components : {
+        /** Declaração de Componentes **/
+        components: {
 
             Progress,
-            AlertQuery,
 
         },
 
-        data(){
+        data() {
 
-            return{
+            return {
 
-                form : {
+                editor: ClassicEditor,
+                editorConfig: {},
+                form: {
 
-                    step         : 1,
-                    progress_bar : false,
-                    class        : null,
+                    progress_bar: false,
+                    show_form: false,
 
                 },
                 /** Grupo de variáveis que guarda os dados de consultas sql's **/
@@ -355,24 +249,40 @@
 
                     result         : [],
                     message        : null,
-                    situations     : [],
                     user_functions : [],
-
-                },
-                route : {
-
-                    project_id : this.$route.params.project_id,
 
                 },
                 /** Grupo de variáveis que guardar os dados dos campos do formulário **/
                 inputs : {
 
+                    user_id          : null,
                     user_function_id : null,
                     situation_id     : null,
                     name             : null,
                     email            : null,
                     date_birth       : null,
+                    access_first     : null,
+                    access_last      : null,
+                    access_log       : null,
                     password         : null,
+                    date_register    : null,
+
+                },
+                /** Grupo de variáveis que guardar os dados dos campos do arquivo **/
+                inputs_file: {
+
+                    name: [],
+                    name_auxiliary: [],
+                    part: [],
+                    length: [],
+                    extension: [],
+
+                },
+                /** Grupo de variaveis da sessão do usuário **/
+                session: {
+
+                    user_id: this.$route.params.user_id,
+                    user_function_id: this.$route.params.user_function_id,
 
                 },
 
@@ -380,39 +290,42 @@
 
         },
 
-        methods :{
+        methods: {
 
-            PrevForm(){
+            /** Adiciono ou removo um elemento da array **/
+            RemoveFile(index) {
 
-                this.form.step--;
+                /** Removo o elemento da array **/
+                this.inputs_file.name_auxiliary.splice(index, 1);
+                this.inputs_file.name.splice(index, 1);
+                this.inputs_file.part.splice(index, 1);
+                this.inputs_file.length.splice(index, 1);
+                this.inputs_file.extension.splice(index, 1);
 
             },
 
-            NextForm(){
-
-                this.form.step++;
-
-            },
-
-            /** Listagem de Classes **/
-            ListSituations(){
+            /** Busco o 'Conteúdo' **/
+            EditForm() {
 
                 /** Deixo a barra de progresso disponivel **/
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=SITUATION&ACTION=DATAGRID',)
+                axios.post('router.php?TABLE=USER&ACTION=USER_SAVE', {
+                    inputs: this.inputs
+                })
 
-                    /** Caso tenha sucesso **/
+                /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Guardo minha resposta em uma váriavel **/
-                        this.query.situations = response.data.result;
+                        this.inputs = response.data.result;
 
                         /** Defino um delay no progresso **/
                         setTimeout(() => {
 
                             this.form.progress_bar = false;
+                            this.form.show_form = true;
 
                         }, 1000);
 
@@ -434,9 +347,9 @@
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=USER_FUNCTION&ACTION=DATAGRID')
+                axios.post('router.php?TABLE=USER_FUNCTION&ACTION=USER_FUNCTION_DATAGRID')
 
-                    /** Caso tenha sucesso **/
+                /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Guardo minha resposta em uma váriavel **/
@@ -461,50 +374,49 @@
             },
 
             /** Método para listar todos os registros **/
-            Save(){
+            Save() {
 
-                /** Limpo minhas mensagens de erros **/
-                this.query.message     = null;
                 /** Habilito minha barra de progresso **/
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao servidor **/
-                axios.post('router.php?TABLE=USER&ACTION=SAVE', {inputs: this.inputs})
+                axios.post('router.php?TABLE=USER&ACTION=USER_SAVE', {
+                    inputs: this.inputs
+                })
 
-                /** Caso tenha sucesso **/
+                    /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Verifico a categoria do meu retorno **/
-                        switch (response.data.cod){
-
-                            case 0 :
-
-                                this.query.message = response.data.message;
-                                this.form.class    = 'danger';
-                                setTimeout(() => {
-
-                                    this.form.progress_bar = false;
-
-                                }, 1000);
-                                break;
+                        switch (response.data.cod) {
 
                             case 1:
 
-                                this.query.message = response.data.message;
-                                this.form.class    = 'success';
                                 window.setTimeout(() => {
 
-                                    this.form.progress_bar = false;
-                                    this.$router.replace('/users-datagrid/');
+                                    if (this.inputs_file) {
+
+                                        this.inputs.content_id = response.data.content_id;
+                                        this.PrepareForm();
+
+                                    } else {
+
+                                        this.$router.replace({
+                                            name: 'users-datagrid',
+                                            params: {
+                                                user_id: this.session.user_id,
+                                                user_function_id: this.session.user_function_id
+                                            }
+                                        });
+
+                                    }
 
                                 }, 1000);
                                 break;
 
-                            case  3:
+                            default:
 
-                                this.query.message = response.data.message_sql;
-                                this.form.class    = 'danger';
-                                setTimeout(() => {
+                                window.setTimeout(() => {
 
                                     this.form.progress_bar = false;
 
@@ -522,14 +434,122 @@
 
                     });
 
-            }
+            },
+
+            /** Preparo o formulário para envio **/
+            async PrepareForm() {
+
+                /** Envio as requisições de acordo com o tamanho da array **/
+                for (let i = 0; i < this.inputs_file.part.length; i++) {
+
+                    for (let j = 0; j < this.inputs_file.part[i].length; j++) {
+
+                        await this.SendForm(this.inputs.content_id, this.inputs.situation_id, this.inputs_file.name[i], j, this.inputs_file.part[i][j], this.inputs_file.part[i].length, this.inputs_file.extension[i]);
+
+                    }
+
+                }
+
+                this.$router.replace({
+                    name: 'users-datagrid',
+                    params: {
+                        user_id: this.session.user_id,
+                        user_function_id: this.session.user_function_id
+                    }
+                });
+
+            },
+
+            /** Envio uma requisição para o servidor **/
+            SendForm: async(content_id, situation_id, name, pointer, part, length, extension) => {
+
+                return axios.post('router.php?TABLE=USER_FILE&ACTION=USER_FILE_SAVE', {
+                    inputs: {
+                        content_id: content_id,
+                        situation_id: situation_id,
+                        name: name,
+                        pointer: pointer,
+                        part: part,
+                        length: length,
+                        extension: extension
+                    }
+                });
+
+            },
+
+            onChange(e) {
+
+                /** Preparo o envio de múltiplos arquivos **/
+                for (let i = 0; i < e.target.files.length; i++) {
+
+                    /** Instâncimento de objeto para ler o conteúdo do arquivo ***/
+                    let fileReader = new FileReader();
+
+                    /** Leio o conteúdo do arquivo **/
+                    fileReader.readAsDataURL(e.target.files[i]);
+
+                    /** Pego o nome do arquivo **/
+                    this.inputs_file.name_auxiliary.push(e.target.files[i].name);
+
+                    /** Gero o nome que vai salvar no banco de dados **/
+                    this.inputs_file.name.push('myvideo_' + (btoa(Math.random())) + '.' + (e.target.files[i].name.substring(e.target.files[i].name.indexOf(".") + 1)));
+
+                    /** Pego o tipo do arquivo **/
+                    this.inputs_file.extension.push(e.target.files[i].type);
+
+                    fileReader.onload = (e) => {
+
+                        /** Particionar o base64 em Array **/
+                        let localString = e.target.result.split(',')[1];
+                        let start = 0;
+                        let end = 2097152;
+                        let localArray = Array();
+                        let part = null;
+
+                        /** Executo de acordo com o tamanho do base64 **/
+                        for (let i = 0; i < localString.length; i++) {
+
+                            /** Preencho selecionando o que esta entre o valor inicial e final **/
+                            part = localString.substring(start, end);
+
+                            /** Verifico se cheguei ao final do base64, senão preencho as variáveis **/
+                            if (part && part !== null) {
+
+                                /** Coloca o trecho do base64 na última posição da array **/
+                                localArray.push(part);
+
+                                /** Crio um novo intervalo de valores **/
+                                start = end;
+                                end = end + 2097152;
+
+                            }
+
+                        }
+
+                        /** Informo minha array de base64 particionada **/
+                        this.inputs_file.part.push(localArray);
+
+                        /** Informo tamnho da minha array **/
+                        this.inputs_file.length.push(localArray.length);
+
+                    };
+
+                }
+
+            },
 
         },
 
-        mounted(){
+        mounted() {
 
-            this.ListSituations();
+            /** Verifico se é edição **/
+            if (this.$route.params.content_id > 0) {
+
+                this.EditForm();
+
+            }
             this.ListUserFunctions();
+            console.log("Componente 'ContentForm', montado com sucesso!");
 
         }
 

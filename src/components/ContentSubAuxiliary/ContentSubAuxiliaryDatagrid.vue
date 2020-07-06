@@ -48,7 +48,7 @@
 
                     <div class="media mt-3">
 
-                        <img src="image/009-user.png" alt="..." class="mr-3" width="45px">
+                        <img v-bind:src="result.user_file_path + '/' + result.user_file_name" v-bind:alt="result.user_file_name" width="64px" class="mr-3 rounded">
 
                         <div class="media-body">
 
@@ -56,11 +56,7 @@
 
                             <h6 class="mt-0 text-muted"> {{ result.user_function }} </h6>
 
-                            <p style="font-size: 1.1rem;">
-
-                                {{ result.content_complete }}
-
-                            </p>
+                            <div class="card-text" style="font-size: 1.1rem;" v-html="result.content_complete"></div>
 
                             <div class="d-flex" v-if="result.file_name && result.file_type === 'video/mp4'">
 
@@ -80,7 +76,7 @@
 
                             <h6 class="mt-1">
 
-                                <a class="nav-link badge badge-warning text-white mr-1 mt-1" type="button" v-on:click="Form(result.content_sub_id)" v-if="userId == result.user_id">
+                                <a class="nav-link badge badge-warning text-white mr-1 mt-1" type="button" v-on:click="EditForm(result.content_sub_id, result.content_id, result.content_sub_auxiliary_id, result.title, result.content_complete)" v-if="userId == result.user_id">
 
                                     <i class="fa fa-pencil-alt"></i> Editar
 
@@ -110,7 +106,7 @@
 
             <div class="card shadow-sm border-dashed animate animate__fadeIn">
 
-                <div class="container">
+                <div class="card-body">
 
                     <div class="media my-3">
 
@@ -144,7 +140,7 @@
 
                                             <div class="form-group">
 
-                                                <input type="text" class="form-control" placeholder="Conteúdo Completo" v-model="inputs.content_complete">
+                                                <ckeditor v-bind:editor="editor" v-model="inputs.content_complete" v-bind:config="editorConfig"></ckeditor>
 
                                             </div>
 
@@ -154,51 +150,116 @@
 
                                 </div>
 
-                                <div class="container">
+                                <div class="col-md-12">
 
-                                    <div class="col-md-12 border-dashed-default rounded">
+                                    <div class="form-group">
 
-                                        <div class="file-drop-area" v-if="!inputs_file.file">
+                                        <div class="border-dashed-default rounded">
 
-                                            <span class="fake-btn mr-3">
+                                            <div class="file-drop-area" v-if="!inputs_file.file">
 
-                                                Escolha seus arquivos
+                                                <span class="fake-btn mr-3">
 
-                                            </span>
+                                                    Escolha seus arquivos
 
-                                            <span class="file-msg">
+                                                </span>
 
-                                                Arraste seus arquivos e solte até aqui para carregalos
+                                                <span class="file-msg">
 
-                                            </span>
+                                                    Arraste seus arquivos e solte até aqui para carregalos
 
-                                            <input class="file-input" type="file" v-on:change="onChange">
+                                                </span>
 
-                                        </div>
+                                                <input class="file-input" type="file" v-on:change="onChange">
 
-                                        <div v-else>
+                                            </div>
 
-                                            <div class="media my-3">
+                                            <div v-else>
 
-                                                <div class="media-body">
+                                                <div class="media">
 
-                                                    <h3 class="mt-0">
+                                                    <div class="media-body p-3">
 
-                                                        {{ inputs_file.name }}
+                                                        <h3 class="mt-0">
 
-                                                    </h3>
+                                                            {{ inputs_file.name_auxiliary }}
 
-                                                    <button class="btn btn-default" v-on:click="ResetFormFile()">
+                                                        </h3>
 
-                                                        <i class="fas fa-eraser mr-1"></i> Remover Arquivo
+                                                        <button class="btn btn-default" v-on:click="ResetFormFile()">
 
-                                                    </button>
+                                                            <i class="fas fa-eraser mr-1"></i> Remover Arquivo
+
+                                                        </button>
+
+                                                    </div>
 
                                                 </div>
 
                                             </div>
 
                                         </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12" v-if="inputs_file.name_auxiliary.length > 0">
+
+                                    <div class="form-group">
+
+                                        <table class="table table-bordered table-borderless border-dashed-table rounded shadow-sm">
+
+                                            <thead>
+
+                                            <tr>
+
+                                                <th scope="col" class="text-center">#</th>
+                                                <th scope="col">Nome</th>
+                                                <th scope="col">Extensão</th>
+                                                <th scope="col" class="text-center">Operações</th>
+
+                                            </tr>
+
+                                            </thead>
+
+                                            <tbody>
+
+                                            <tr v-for="(result, index) in inputs_file.name_auxiliary" v-bind:key="index" class="border-top-dashed-table">
+
+                                                <th scope="row" class="text-center">
+
+                                                    {{ index }}
+
+                                                </th>
+
+                                                <td>
+
+                                                    {{ result }}
+
+                                                </td>
+
+                                                <td>
+
+                                                    {{ inputs_file.extension[index] }}
+
+                                                </td>
+
+                                                <td class="text-center">
+
+                                                    <button class="btn btn-danger" v-on:click="RemoveFile(index)">
+
+                                                        <i class="fas fa-fire-alt mr-1"></i>
+
+                                                    </button>
+
+                                                </td>
+
+                                            </tr>
+
+                                            </tbody>
+
+                                        </table>
 
                                     </div>
 
@@ -234,7 +295,6 @@
 
         </div>
 
-        <!-- Exibe a barra de progresso quando for verdadeiro-->
         <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
 
             <div class="card shadow-sm">
@@ -249,7 +309,7 @@
 
         </div>
 
-        <a type="button" class="btn btn-dashed col-md-12 mt-1" v-on:click="ShowForm()">
+        <a type="button" class="btn btn-dashed col-md-12 mt-1" v-on:click="ShowForm(), form.operation = 0">
 
             <i class="fas fa-comment mr-1"></i>{{ form.show_form ? 'Cancelar' : 'Responder' }}
 
@@ -261,74 +321,85 @@
 
 <script type="text/ecmascript-6">
 
-    import axios    from 'axios';
+    import axios from 'axios';
     import Progress from '../Geral/Progress';
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
     export default {
 
         name: "ContentSubAuxiliaryDatagrid",
 
-        components : {
+        components: {
 
             Progress,
 
         },
 
-        props : {
+        props: {
 
-            contentSubId   : null,
-            contentId      : null,
-            userId         : null,
-            userFunctionId : null,
+            contentSubId: null,
+            contentId: null,
+            userId: null,
+            userFunctionId: null,
 
         },
 
-        data(){
+        data() {
 
-            return{
+            return {
 
-                form : {
+                editor: ClassicEditor,
+                editorConfig: {},
+                form: {
 
-                    progress_bar : false,
-                    class        : null,
-                    show_form    : false,
+                    progress_bar: false,
+                    class: null,
+                    show_form: false,
+                    operation: 0,
 
                 },
 
-                query : {
+                query: {
 
-                    result : [],
+                    result: [],
 
                 },
 
                 /** Grupo de variáveis que guardar os dados dos campos do formulário **/
-                inputs : {
+                inputs: {
 
-                    content_sub_id           : this.contentSubId,
-                    content_id               : this.contentId,
-                    content_sub_auxiliary_id : this.contentSubId,
-                    user_id                  : null,
-                    situation_id             : null,
-                    menu_position            : null,
-                    highlighter_id           : null,
-                    url                      : null,
-                    title                    : null,
-                    title_menu               : null,
-                    description              : null,
-                    content_resume           : null,
-                    content_complete         : null,
-                    date_register            : null,
-                    date_update              : null,
+                    content_sub_id: this.contentSubId,
+                    content_id: this.contentId,
+                    content_sub_auxiliary_id: this.contentSubId,
+                    user_id: null,
+                    situation_id: null,
+                    menu_position: null,
+                    highlighter_id: null,
+                    url: null,
+                    title: null,
+                    title_menu: null,
+                    description: null,
+                    content_resume: null,
+                    content_complete: null,
+                    date_register: null,
+                    date_update: null,
 
                 },
                 /** Grupo de variáveis que guardar os dados dos campos do arquivo **/
-                inputs_file : {
+                inputs_file: {
 
-                    name      : null,
-                    file      : null,
-                    part      : null,
-                    length    : 0,
-                    extension : null,
+                    name: [],
+                    name_auxiliary: [],
+                    part: [],
+                    length: [],
+                    extension: [],
+
+                },
+                /** Dados da Seção **/
+                session: {
+
+                    user_id: this.$route.params.user_id,
+                    user_function_id: this.$route.params.user_function_id,
 
                 },
 
@@ -336,15 +407,17 @@
 
         },
 
-        methods : {
+        methods: {
 
-            ShowForm(){
+            /** Habilito ou Desabilito o Formulário de Cadastro **/
+            ShowForm() {
 
-                if(this.form.show_form){
+                if (this.form.show_form) {
 
                     this.form.show_form = false;
+                    this.ResetForm();
 
-                }else{
+                } else {
 
                     this.form.show_form = true;
 
@@ -352,49 +425,62 @@
 
             },
 
-            ResetForm(){
+            /** Adiciono ou removo um elemento da array **/
+            RemoveFile(index) {
 
-                this.inputs.content_sub_id           = this.contentSubId;
-                this.inputs.content_id               = this.contentId;
-                this.inputs.content_sub_auxiliary_id = this.contentSubId;
-                this.inputs.user_id                  = null;
-                this.inputs.situation_id             = null;
-                this.inputs.menu_position            = null;
-                this.inputs.highlighter_id           = null;
-                this.inputs.url                      = null;
-                this.inputs.title                    = null;
-                this.inputs.title_menu               = null;
-                this.inputs.description              = null;
-                this.inputs.content_resume           = null;
-                this.inputs.content_complete         = null;
-                this.inputs.date_register            = null;
-                this.inputs.date_update              = null;
-
-                this.form.show_form                  = false;
-                this.form.progress_bar               = false;
+                /** Removo o elemento da array **/
+                this.inputs_file.name_auxiliary.splice(index, 1);
+                this.inputs_file.name.splice(index, 1);
+                this.inputs_file.part.splice(index, 1);
+                this.inputs_file.length.splice(index, 1);
+                this.inputs_file.extension.splice(index, 1);
 
             },
 
-            ResetFormFile(){
+            ResetForm() {
 
-                this.inputs_file.name      = null;
-                this.inputs_file.file      = null;
-                this.inputs_file.part      = null;
-                this.inputs_file.length    = 0;
-                this.inputs_file.extension = null;
-                this.form.progressBar      = 0;
+                this.inputs.content_sub_id = this.contentSubId;
+                this.inputs.content_id = this.contentId;
+                this.inputs.content_sub_auxiliary_id = this.contentSubId;
+                this.inputs.user_id = null;
+                this.inputs.situation_id = null;
+                this.inputs.menu_position = null;
+                this.inputs.highlighter_id = null;
+                this.inputs.url = null;
+                this.inputs.title = null;
+                this.inputs.title_menu = null;
+                this.inputs.description = null;
+                this.inputs.content_resume = null;
+                this.inputs.content_complete = null;
+                this.inputs.date_register = null;
+                this.inputs.date_update = null;
+
+                this.form.show_form = false;
+                this.form.progress_bar = false;
+
+            },
+
+            ResetFormFile() {
+
+                this.inputs_file.name_auxiliary = [];
+                this.inputs_file.name = [];
+                this.inputs_file.part = [];
+                this.inputs_file.length = [];
+                this.inputs_file.extension = [];
 
             },
 
             /** Listagem de Classes **/
-            List(){
+            List() {
 
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=CONTENT_SUB_AUXILIARY&ACTION=DATAGRID', {inputs : this.inputs})
+                axios.post('router.php?TABLE=CONTENT_SUB_AUXILIARY&ACTION=CONTENT_SUB_AUXILIARY_DATAGRID', {
+                    inputs: this.inputs
+                })
 
-                    /** Caso tenha sucesso **/
+                /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Guardo minha resposta em uma váriavel **/
@@ -413,18 +499,20 @@
             },
 
             /** Exclusão de Classes **/
-            Delete(content_sub_id){
+            Delete(content_sub_id) {
 
                 this.inputs.content_sub_id = content_sub_id;
 
                 /** Evnio uma requisão ao meu servidor pelo método 'Post' **/
-                axios.post('router.php?TABLE=CONTENT_SUB_AUXILIARY&ACTION=DELETE', {inputs : this.inputs})
+                axios.post('router.php?TABLE=CONTENT_SUB_AUXILIARY&ACTION=CONTENT_SUB_AUXILIARY_DELETE', {
+                    inputs: this.inputs
+                })
 
-                    /** Caso tenha sucesso **/
+                /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Verifico a categoria do meu retorno **/
-                        switch (response.data.cod){
+                        switch (response.data.cod) {
 
                             case 1:
 
@@ -449,36 +537,38 @@
             },
 
             /** Método para listar todos os registros **/
-            Save(){
+            Save() {
 
                 /** Habilito minha barra de progresso **/
                 this.form.progress_bar = true;
 
-                if (!this.inputs.user_id){
+                if (this.form.operation == 0) {
 
                     this.inputs.content_sub_id = null;
 
                 }
 
                 /** Envio uma requisição ao servidor **/
-                axios.post('router.php?TABLE=CONTENT_SUB_AUXILIARY&ACTION=SAVE', {inputs: this.inputs})
+                axios.post('router.php?TABLE=CONTENT_SUB_AUXILIARY&ACTION=CONTENT_SUB_AUXILIARY_SAVE', {
+                    inputs: this.inputs
+                })
 
-                    /** Caso tenha sucesso **/
+                /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Verifico a categoria do meu retorno **/
-                        switch (response.data.cod){
+                        switch (response.data.cod) {
 
                             case 1:
 
                                 window.setTimeout(() => {
 
-                                    if (this.inputs_file){
+                                    if (this.inputs_file) {
 
                                         this.inputs.content_sub_id = response.data.content_sub_id;
                                         this.PrepareForm();
 
-                                    }else{
+                                    } else {
 
                                         this.ResetForm();
                                         this.ResetFormFile();
@@ -511,139 +601,141 @@
 
             },
 
-            /** Listagem de Classes **/
-            Form(content_sub_id){
+            /** Edição de Registro **/
+            EditForm(content_sub_id, content_id, content_sub_auxiliary_id, title, content_complete) {
 
                 /** Deixo a barra de progresso disponivel **/
                 this.form.progress_bar = true;
-                this.form.show_form    = false;
+                /** Desabilito o formulário **/
+                this.form.show_form = false;
 
+                /** Coloca os valores em edição **/
                 this.inputs.content_sub_id = content_sub_id;
+                this.inputs.content_id = content_id;
+                this.inputs.content_sub_auxiliary_id = content_sub_auxiliary_id;
+                this.inputs.title = title;
+                this.inputs.content_complete = content_complete;
 
-                /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=CONTENT_SUB_AUXILIARY&ACTION=EDIT_FORM', {inputs: this.inputs})
+                /** Defino se é inclusão ou atualização **/
+                this.form.operation = 1;
 
-                    /** Caso tenha sucesso **/
-                    .then(response => {
+                /** Defino um delay no progresso **/
+                setTimeout(() => {
 
-                        /** Guardo minha resposta em uma váriavel **/
-                        this.inputs = response.data.result;
+                    /** Desabilito a Barra de Progresso **/
+                    this.form.progress_bar = false;
+                    /** Habilito o formulário **/
+                    this.form.show_form = true;
 
-                        /** Defino um delay no progresso **/
-                        setTimeout(() => {
-
-                            this.form.progress_bar = false;
-                            this.form.show_form    = true;
-
-                        }, 1000);
-
-                    })
-
-                    /** Caso tenha falha **/
-                    .catch(response => {
-
-                        console.log('Erro:' + response);
-
-                    });
+                }, 300);
 
             },
 
             /** Preparo o formulário para envio **/
-            async PrepareForm(){
+            async PrepareForm() {
 
                 /** Envio as requisições de acordo com o tamanho da array **/
-                for (let i = 0; i < this.inputs_file.length; i++){
+                for (let i = 0; i < this.inputs_file.part.length; i++) {
 
-                    await this.SendForm(this.inputs.content_sub_id, this.inputs.situation_id, this.inputs_file.name, i, this.inputs_file.file[i], this.inputs_file.length, this.inputs_file.extension)
+                    for (let j = 0; j < this.inputs_file.part[i].length; j++) {
 
-                        .then((response => {
+                        /** Envio uma requisição para o servidor e aguardo uma resposta **/
+                        await this.SendForm(this.inputs.content_sub_id, this.inputs.situation_id, this.inputs_file.name[i], j, this.inputs_file.part[i][j], this.inputs_file.part[i].length, this.inputs_file.extension[i]);
 
-                            this.CalculateProgressBar(i, (this.inputs_file.length - 1));
-                            console.log(response.data.cod);
-
-                        }));
+                    }
 
                 }
 
-                this.ResetFormFile();
                 this.ResetForm();
+                this.ResetFormFile();
                 this.List();
 
             },
 
             /** Envio uma requisição para o servidor **/
-            SendForm : async (content_sub_id, situation_id, name, pointer, part, length, extension) => {
+            SendForm: async(content_sub_id, situation_id, name, pointer, part, length, extension) => {
 
-                return axios.post('router.php?TABLE=CONTENT_SUB_FILE&ACTION=SAVE', {inputs: {content_sub_id : content_sub_id, situation_id : situation_id, name : name, pointer : pointer, part : part, length : length, extension : extension}});
-
-            },
-
-            /** Calculo a barra de progresso **/
-            CalculateProgressBar(byteUploaded, length){
-
-                this.form.progressBar = (byteUploaded * 100) / length;
+                return axios.post('router.php?TABLE=CONTENT_SUB_FILE&ACTION=CONTENT_SUB_FILE_SAVE', {
+                    inputs: {
+                        content_sub_id: content_sub_id,
+                        situation_id: situation_id,
+                        name: name,
+                        pointer: pointer,
+                        part: part,
+                        length: length,
+                        extension: extension
+                    }
+                });
 
             },
 
             onChange(e) {
 
-                /** Instâncimento de objeto para ler o conteúdo do arquivo ***/
-                let fileReader = new FileReader();
+                /** Preparo o envio de múltiplos arquivos **/
+                for (let i = 0; i < e.target.files.length; i++) {
 
-                /** Leio o conteúdo do arquivo **/
-                fileReader.readAsDataURL(e.target.files[0]);
+                    /** Instâncimento de objeto para ler o conteúdo do arquivo ***/
+                    let fileReader = new FileReader();
 
-                /** Pego o nome do arquivo **/
-                this.inputs_file.name      = e.target.files[0].name;
+                    /** Leio o conteúdo do arquivo **/
+                    fileReader.readAsDataURL(e.target.files[i]);
 
-                /** Pego o tipo do arquivo **/
-                this.inputs_file.extension = e.target.files[0].type;
+                    /** Pego o nome do arquivo **/
+                    this.inputs_file.name_auxiliary.push(e.target.files[i].name);
 
-                fileReader.onload = (e) => {
+                    /** Gero o nome que vai salvar no banco de dados **/
+                    this.inputs_file.name.push('myvideo_' + (btoa(Math.random())) + '.' + (e.target.files[i].name.substring(e.target.files[i].name.indexOf(".") + 1)));
 
-                    /** Particionar o base64 em Array **/
-                    let localString = e.target.result.substring(e.target.result.indexOf(",") + 1);
-                    let start       = 0;
-                    let end         = 2097152;
-                    let localArray  = Array();
-                    let part        = null;
+                    /** Pego o tipo do arquivo **/
+                    this.inputs_file.extension.push(e.target.files[i].type);
 
-                    /** Executo de acordo com o tamanho do base64 **/
-                    for (let i = 0; i < localString.length; i++){
+                    fileReader.onload = (e) => {
 
-                        /** Preencho selecionando o que esta entre o valor inicial e final **/
-                        part = localString.substring(start, end);
+                        /** Particionar o base64 em Array **/
+                        let localString = e.target.result.split(',')[1];
+                        let start = 0;
+                        let end = 2097152;
+                        let localArray = Array();
+                        let part = null;
 
-                        /** Verifico se cheguei ao final do base64, senão preencho as variáveis **/
-                        if (part && part !== null){
+                        /** Executo de acordo com o tamanho do base64 **/
+                        for (let i = 0; i < localString.length; i++) {
 
-                            /** Coloca o trecho do base64 na última posição da array **/
-                            localArray.push(part);
+                            /** Preencho selecionando o que esta entre o valor inicial e final **/
+                            part = localString.substring(start, end);
 
-                            /** Crio um novo intervalo de valores **/
-                            start = end;
-                            end   = end + 2097152;
+                            /** Verifico se cheguei ao final do base64, senão preencho as variáveis **/
+                            if (part && part !== null) {
+
+                                /** Coloca o trecho do base64 na última posição da array **/
+                                localArray.push(part);
+
+                                /** Crio um novo intervalo de valores **/
+                                start = end;
+                                end = end + 2097152;
+
+                            }
 
                         }
 
-                    }
+                        /** Informo minha array de base64 particionada **/
+                        this.inputs_file.part.push(localArray);
 
-                    /** Pego o tamanho da minha array **/
-                    this.inputs_file.length = localArray.length;
+                        /** Informo tamnho da minha array **/
+                        this.inputs_file.length.push(localArray.length);
 
-                    /** Transfiro minha array **/
-                    this.inputs_file.file   = localArray;
+                    };
 
-                };
+                }
 
             },
 
         },
 
-        created(){
+        created() {
 
             this.List();
-            console.log('Componente "UsersDatagrid", montado com sucesso!')
+            console.log('Componente "ContentSubAuxiliaryDatagrid", montado com sucesso!');
 
         },
 

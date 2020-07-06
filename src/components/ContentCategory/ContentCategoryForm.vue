@@ -2,178 +2,93 @@
 
     <div>
 
-        <nav class="navbar navbar-light navbar-expand-md bg-light justify-content-center bg-white border-bottom-color shadow-sm border-top">
+        <h4>
+
+            <i class="far fa-folder-open mr-1"></i>Categoria de Conteúdo
+
+        </h4>
+
+        <div class="card card-hover shadow-sm border border-dashed" v-if="session.user_function_id == 1">
 
             <div class="container">
 
-                <button class="navbar-toggler ml-1" type="button" data-toggle="collapse" data-target="#collapsingNavbar2">
+                <div class="media m-4">
 
-                    <span class="navbar-toggler-icon"></span>
+                    <div class="media-body">
 
-                </button>
+                        <h3 class="mb-0 text-center">
 
-                <div class="navbar-collapse collapse justify-content-between align-items-center w-100 animate animate__fadeIn" id="collapsingNavbar2">
+                            <strong>
 
-                    <ul class="navbar-nav mx-auto text-center">
+                                Cancelar cadastro
 
-                        <li class="nav-item mr-3">
+                            </strong>
 
-                            <router-link to="/content-category-datagrid/" class="nav-link" href="#">
+                        </h3>
 
-                                <i class="fas fa-backward mr-1"></i>Voltar
+                        <h5 class="mt-2 text-center">
+
+                            <router-link v-bind:to="{name : 'content-category-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}" class="stretched-link text-decoration-none badge badge-light">
+
+                                Clique para cancelar
 
                             </router-link>
 
-                        </li>
+                        </h5>
 
-                    </ul>
-
-                </div>
-
-            </div>
-
-        </nav>
-
-        <div class="container">
-
-            <div class="card text-white text-center shadow-sm border-0 mt-3 background-gradient animate animate__fadeIn">
-
-                <div class="card-body">
-
-                    <h6 class="card-title mb-0">
-
-                        Formulário de
-
-                    </h6>
-
-                    <h3 class="mt-0">
-
-                        Categoria de Conteúdo
-
-                    </h3>
+                    </div>
 
                 </div>
 
             </div>
 
-            <!-- Verifico se possui mensagens retornadas do banco de dados -->
-            <div v-if="query.message" class="mt-3 animate animate__fadeIn">
+        </div>
 
-                <AlertQuery v-bind:class_name="form.class" v-bind:message="query.message"></AlertQuery>
+        <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
 
-            </div>
-
-            <!-- Exibe a barra de progresso quando for verdadeiro-->
-            <div v-if="form.progress_bar" class="mt-3 animate animate__fadeIn">
-
-                <Progress percent="100"></Progress>
-
-            </div>
-
-            <div class="card shadow-sm animate animate__fadeIn mt-3" v-else>
+            <div class="card shadow-sm">
 
                 <div class="card-body">
 
-                    <div class="row">
+                    <Progress percent="100"></Progress>
 
-                        <div class="col-md-12" v-if="form.step === 1">
+                </div>
 
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+            </div>
 
-                                <strong>1º Parte:</strong> Dados Principais
+        </div>
 
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <div class="mt-3 card shadow-sm border-dashed animate animate__fadeIn" v-else>
 
-                                    <span aria-hidden="true">&times;</span>
+            <div class="card-body">
 
-                                </button>
+                <div class="media my-3">
 
-                            </div>
+                    <div class="media-body">
 
-                        </div>
+                        <div class="row">
 
-                        <div class="col-md-12" v-if="form.step === 1">
+                            <div class="col-md-12">
 
-                            <div class="row">
+                                <div class="row">
 
-                                <div class="col-md-6">
+                                    <div class="col-md-6">
 
-                                    <div class="form-group">
+                                        <div class="form-group">
 
-                                        <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name"/>
+                                            <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name">
 
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-6">
-
-                                    <div class="form-group">
-
-                                        <input type="email" class="form-control" placeholder="Descrição" v-model="inputs.description"/>
+                                        </div>
 
                                     </div>
 
-                                </div>
+                                    <div class="col-md-6">
 
-                            </div>
+                                        <div class="form-group">
 
-                        </div>
+                                            <input type="text" class="form-control" placeholder="Descrição" v-model="inputs.description">
 
-                        <div class="col-md-12" v-if="form.step === 1">
-
-                            <div class="form-group text-right">
-
-                                <button class="btn btn-primary" v-on:click="NextForm()" v-if="inputs.name && inputs.description">
-
-                                    Avançar
-
-                                </button>
-
-                                <button class="btn btn-primary disabled" v-else disabled>
-
-                                    Preencha todos os campos
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-12" v-if="form.step === 2">
-
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-
-                                <strong>2º Parte:</strong> Dados Secundários
-
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-
-                                    <span aria-hidden="true">&times;</span>
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-12" v-if="form.step === 2">
-
-                            <div class="row">
-
-                                <div class="col-md-12">
-
-                                    <div class="form-group">
-
-                                        <select class="form-control custom-select" v-model="inputs.situation_id">
-
-                                            <option value="0" selected>Situação</option>
-                                            <option v-bind:value="result.situation_id" v-for="(result, index) in query.situations" v-bind:key="index">
-
-                                                {{ result.name }}
-
-                                            </option>
-
-                                        </select>
+                                        </div>
 
                                     </div>
 
@@ -181,35 +96,21 @@
 
                             </div>
 
-                        </div>
+                            <div class="col-md-12 text-right mt-3">
 
-                        <div class="col-md-6" v-if="form.step === 2">
+                                <button class="btn btn-default" v-on:click="Save()" v-if="inputs.name && inputs.description">
 
-                            <div class="form-group text-left">
+                                    <i class="fas fa-paper-plane"></i> Salvar
 
-                                <button class="btn btn-primary" v-on:click="PrevForm()">
+                                </button>
 
-                                    Voltar
+                                <button class="btn btn-default disabled" v-else disabled>
+
+                                    <i class="fas fa-paper-plane"></i> Salvar
 
                                 </button>
 
                             </div>
-
-                        </div>
-
-                        <div class="col-md-6 text-right" v-if="form.step === 2">
-
-                            <button class="btn btn-primary" v-on:click="Save()" v-if="inputs.name && inputs.description && inputs.situation_id">
-
-                                <i class="fas fa-paper-plane-o"></i> Salvar
-
-                            </button>
-
-                            <button class="btn btn-primary disabled" v-else disabled>
-
-                                Preencha todos os campos
-
-                            </button>
 
                         </div>
 
@@ -227,51 +128,64 @@
 
 <script type="text/ecmascript-6">
 
-    import axios      from 'axios';
-    import Progress   from '../Geral/Progress'
-    import AlertQuery from '../Geral/AlertQuery';
+    /** Importação de componentes **/
+    import axios from 'axios';
+    import Progress from '../Geral/Progress';
 
     export default {
 
-        name: "ClassForm",
+        /** Nome do componente atual **/
+        name: "ContentCategoryForm",
 
-        components : {
+        /** Declaração de Componentes **/
+        components: {
 
             Progress,
-            AlertQuery,
 
         },
 
-        data(){
+        data() {
 
-            return{
+            return {
 
-                form : {
+                form: {
 
-                    step         : 1,
-                    progress_bar : false,
-                    class        : null,
+                    progress_bar: false,
+                    show_form: false,
 
                 },
                 /** Grupo de variáveis que guarda os dados de consultas sql's **/
                 query : {
 
-                    result         : [],
-                    message        : null,
-                    situations     : [],
-
-                },
-                route : {
-
-                    project_id : this.$route.params.project_id,
+                    result : [],
 
                 },
                 /** Grupo de variáveis que guardar os dados dos campos do formulário **/
                 inputs : {
 
-                    situation_id : null,
-                    name         : null,
-                    description  : null,
+                    content_category_id : null,
+                    user_id             : null,
+                    situation_id        : null,
+                    name                : null,
+                    description         : null,
+                    date_register       : null,
+                    date_update         : null,
+                },
+                /** Grupo de variáveis que guardar os dados dos campos do arquivo **/
+                inputs_file: {
+
+                    name: [],
+                    name_auxiliary: [],
+                    part: [],
+                    length: [],
+                    extension: [],
+
+                },
+                /** Grupo de variaveis da sessão do usuário **/
+                session: {
+
+                    user_id: this.$route.params.user_id,
+                    user_function_id: this.$route.params.user_function_id,
 
                 },
 
@@ -279,39 +193,30 @@
 
         },
 
-        methods :{
+        methods: {
 
-            PrevForm(){
-
-                this.form.step--;
-
-            },
-
-            NextForm(){
-
-                this.form.step++;
-
-            },
-
-            /** Listagem de Classes **/
-            ListSituations(){
+            /** Busco o 'Conteúdo' **/
+            EditForm() {
 
                 /** Deixo a barra de progresso disponivel **/
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=SITUATION&ACTION=DATAGRID',)
+                axios.post('router.php?TABLE=CONTENT_CATEGORY&ACTION=CONTENT_CATEGORY_EDIT_FORM', {
+                    inputs: this.inputs
+                })
 
-                    /** Caso tenha sucesso **/
+                /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Guardo minha resposta em uma váriavel **/
-                        this.query.situations = response.data.result;
+                        this.inputs = response.data.result;
 
                         /** Defino um delay no progresso **/
                         setTimeout(() => {
 
                             this.form.progress_bar = false;
+                            this.form.show_form = true;
 
                         }, 1000);
 
@@ -327,50 +232,40 @@
             },
 
             /** Método para listar todos os registros **/
-            Save(){
+            Save() {
 
-                /** Limpo minhas mensagens de erros **/
-                this.query.message     = null;
                 /** Habilito minha barra de progresso **/
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao servidor **/
-                axios.post('router.php?TABLE=CONTENT_CATEGORY&ACTION=SAVE', {inputs: this.inputs})
+                axios.post('router.php?TABLE=CONTENT_CATEGORY&ACTION=CONTENT_CATEGORY_SAVE', {
+                    inputs: this.inputs
+                })
 
                 /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Verifico a categoria do meu retorno **/
-                        switch (response.data.cod){
-
-                            case 0 :
-
-                                this.query.message = response.data.message;
-                                this.form.class    = 'danger';
-                                setTimeout(() => {
-
-                                    this.form.progress_bar = false;
-
-                                }, 1000);
-                                break;
+                        switch (response.data.cod) {
 
                             case 1:
 
-                                this.query.message = response.data.message;
-                                this.form.class    = 'success';
                                 window.setTimeout(() => {
 
-                                    this.form.progress_bar = false;
-                                    this.$router.replace('/content-category-datagrid/');
+                                    this.$router.replace({
+                                        name : 'content-category-datagrid',
+                                        params: {
+                                            user_id: this.session.user_id,
+                                            user_function_id: this.session.user_function_id
+                                        }
+                                    });
 
                                 }, 1000);
                                 break;
 
-                            case  3:
+                            default:
 
-                                this.query.message = response.data.message_sql;
-                                this.form.class    = 'danger';
-                                setTimeout(() => {
+                                window.setTimeout(() => {
 
                                     this.form.progress_bar = false;
 
@@ -388,13 +283,19 @@
 
                     });
 
-            }
+            },
 
         },
 
-        mounted(){
+        mounted() {
 
-            this.ListSituations();
+            /** Verifico se é edição **/
+            if (this.$route.params.content_category_id > 0) {
+
+                this.EditForm();
+
+            }
+            console.log("Componente 'ContentCategoryForm', montado com sucesso!");
 
         }
 

@@ -10,7 +10,6 @@
 
         </h4>
 
-        <!-- Exibe a barra de progresso quando for verdadeiro-->
         <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
 
             <div class="card shadow-sm">
@@ -31,21 +30,39 @@
 
                 <div class="col-md-3 mb-2" v-for="(result, index) in query.result_top_profiles" v-bind:key="index">
 
-                    <div class="card shadow-sm">
-
-                        <img v-bind:src="result.file_path + '/' + result.file_name" v-bind:alt="result.file_name" class="card-img-top">
+                    <div class="card shadow-sm animate animate__fadeIn">
 
                         <div class="card-body">
 
-                            <h4 class="card-title mb-0">
+                            <img v-bind:src="result.file_path + '/' + result.file_name" v-bind:alt="result.file_name" class="mr-3 rounded img-fluid shadow-sm">
+
+                            <h4 class="card-title mb-2">
 
                                 {{ result.user_name }}
 
                             </h4>
 
-                            <p class="card-text text-muted">
+                            <h6 class="card-subtitle text-muted">
 
                                 {{ result.user_function }}
+
+                            </h6>
+
+                            <p class="card-text">
+
+                                 <span class="text-muted">
+
+                                    <i class="fas fa-hashtag mr-1"></i>{{ result.user_id }}
+
+                                </span>
+
+                                -
+
+                                <span class="text-muted">
+
+                                    <i class="fas fa-birthday-cake mr-1"></i>{{ result.date_birth }}
+
+                                </span>
 
                             </p>
 
@@ -67,7 +84,6 @@
 
         </h4>
 
-        <!-- Exibe a barra de progresso quando for verdadeiro-->
         <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
 
             <div class="card shadow-sm">
@@ -108,33 +124,25 @@
 
                             </div>
 
-                            <div class="media mt-2">
+                            <h4 class="mb-0 card-title">
 
-                                <div class="media-body">
+                                <strong>
 
-                                    <h4 class="mb-0">
+                                    {{ result.title }}
 
-                                        <strong>
+                                </strong>
 
-                                            {{ result.title }}
+                            </h4>
 
-                                        </strong>
+                            <div class="mt-1">
 
-                                    </h4>
-
-                                    <div class="mt-1">
-
-                                        <span class="text-muted"><i class="fas fa-hashtag mr-1"></i>{{ result.content_id }}</span> - <span class="text-muted"><i class="far fa-clock mr-1"></i> {{ result.date_register }}</span> - <span class="text-muted">{{ result.user_name }}</span> - <span class="text-muted">{{ result.user_function }}</span>
-
-                                    </div>
-
-                                </div>
+                                <span class="text-muted"><i class="fas fa-hashtag mr-1"></i>{{ result.content_id }}</span> - <span class="text-muted"><i class="far fa-clock mr-1"></i> {{ result.date_register }}</span> - <span class="text-muted">{{ result.user_name }}</span> - <span class="text-muted">{{ result.user_function }}</span>
 
                             </div>
 
                         </div>
 
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light card-footer card-footer-transparent">
+                        <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer">
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 
@@ -174,11 +182,10 @@
 
         <h4>
 
-            <i class="far fa-folder-open mr-1"></i>Conteúdos
+            <i class="far fa-folder-open mr-1"></i>Publicações
 
         </h4>
 
-        <!-- Exibe a barra de progresso quando for verdadeiro-->
         <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
 
             <div class="card shadow-sm">
@@ -203,63 +210,55 @@
 
                         <div class="card-body">
 
-                            <div class="media">
+                            <h4 class="card-title">
 
-                                <div class="media-body">
+                                <strong>
 
-                                    <h4 class="my-3">
+                                    {{ result.title }}
 
-                                        <strong>
+                                </strong>
 
-                                            {{ result.title }}
+                            </h4>
 
-                                        </strong>
+                            <div class="mt-1">
 
-                                    </h4>
+                                <span class="text-muted">
 
-                                    <div class="mt-1">
+                                    <i class="fas fa-hashtag mr-1"></i>{{result.content_sub_id}}
 
-                                    <span class="text-muted">
+                                </span> -
 
-                                        <i class="fas fa-hashtag mr-1"></i>{{result.content_sub_id}}
+                                <span class="text-muted">
 
-                                    </span> -
+                                    <i class="far fa-clock mr-1"></i>{{result.date_register}}
 
-                                        <span class="text-muted">
+                                </span> -
 
-                                        <i class="far fa-clock mr-1"></i>{{result.date_register}}
+                                <span class="text-muted">
 
-                                    </span> -
+                                    {{result.user_name}}
 
-                                        <span class="text-muted">
+                                </span> -
 
-                                        {{result.user_name}}
+                                <span class="text-muted">
 
-                                    </span> -
+                                    {{result.user_function}}
 
-                                        <span class="text-muted">
-
-                                        {{result.user_function}}
-
-                                    </span>
-
-                                    </div>
-
-                                </div>
+                                </span>
 
                             </div>
 
                         </div>
 
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light card-footer card-footer-transparent">
+                        <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer">
 
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#MenuContentSubDatagrid_' + result.content_sub_id" v-bind:aria-controls="'#MenuContentSubDatagrid_' + result.content_sub_id" aria-expanded="false" aria-label="Toggle navigation">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#MenuContentSubDetails_' + result.content_sub_id" v-bind:aria-controls="'#MenuContentSubDetails_' + result.content_sub_id" aria-expanded="false" aria-label="Toggle navigation">
 
                                 <span class="navbar-toggler-icon"></span>
 
                             </button>
 
-                            <div class="collapse navbar-collapse" v-bind:id="'MenuContentSubDatagrid_' + result.content_sub_id">
+                            <div class="collapse navbar-collapse" v-bind:id="'MenuContentSubDetails_' + result.content_sub_id">
 
                                 <ul class="navbar-nav mr-auto">
 
@@ -293,44 +292,44 @@
 
 <script type="text/ecmascript-6">
 
-    import axios        from 'axios';
-    import Progress     from '../Geral/Progress';
+    import axios from 'axios';
+    import Progress from '../Geral/Progress';
     import ModalConfirm from '../Geral/ModalConfirm';
 
     export default {
 
         name: "AdventureDatagrid",
 
-        components : {
+        components: {
 
             Progress,
             ModalConfirm,
 
         },
 
-        data(){
+        data() {
 
-            return{
+            return {
 
                 /** Controle do HTML **/
-                form : {
+                form: {
 
-                    progress_bar : false,
+                    progress_bar: false,
 
                 },
                 /** Grupo de variáveis que guarda os dados de consultas sql's **/
-                query : {
+                query: {
 
-                    result_top_profiles : [],
-                    result_contents     : [],
-                    result_content_subs : [],
+                    result_top_profiles: [],
+                    result_contents: [],
+                    result_content_subs: [],
 
                 },
                 /** Dados da Seção **/
-                session : {
+                session: {
 
-                    user_id          : this.$route.params.user_id,
-                    user_function_id : this.$route.params.user_function_id,
+                    user_id: this.$route.params.user_id,
+                    user_function_id: this.$route.params.user_function_id,
 
                 },
 
@@ -338,88 +337,24 @@
 
         },
 
-        methods : {
+        methods: {
 
             /** Listagem dos Principais Contribuidores **/
-            GetTopProfiles(){
+            List() {
 
                 /** Deixo a barra de progresso disponivel **/
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=ADVENTURE&ACTION=GET_TOP_PROFILES')
+                axios.post('router.php?TABLE=ADVENTURE&ACTION=ADVENTURE_DATAGRID')
 
                     /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Guardo minha resposta em uma váriavel **/
-                        this.query.result_top_profiles = response.data.result;
-
-                        /** Defino um delay no progresso **/
-                        setTimeout(() => {
-
-                            this.form.progress_bar = false;
-
-                        }, 1000);
-
-                    })
-
-                    /** Caso tenha falha **/
-                    .catch(response => {
-
-                        console.log('Erro:' + response);
-
-                    });
-
-            },
-
-            /** Listagem Aleatória dos Conteúdos **/
-            GetContents(){
-
-                /** Deixo a barra de progresso disponivel **/
-                this.form.progress_bar = true;
-
-                /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=ADVENTURE&ACTION=GET_CONTENTS')
-
-                    /** Caso tenha sucesso **/
-                    .then(response => {
-
-                        /** Guardo minha resposta em uma váriavel **/
-                        this.query.result_contents = response.data.result;
-
-                        /** Defino um delay no progresso **/
-                        setTimeout(() => {
-
-                            this.form.progress_bar = false;
-
-                        }, 1000);
-
-                    })
-
-                    /** Caso tenha falha **/
-                    .catch(response => {
-
-                        console.log('Erro:' + response);
-
-                    });
-
-            },
-
-            /** Listagem Aleatória dos Conteúdos **/
-            GetContentSubs(){
-
-                /** Deixo a barra de progresso disponivel **/
-                this.form.progress_bar = true;
-
-                /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=ADVENTURE&ACTION=GET_CONTENT_SUBS')
-
-                /** Caso tenha sucesso **/
-                    .then(response => {
-
-                        /** Guardo minha resposta em uma váriavel **/
-                        this.query.result_content_subs = response.data.result;
+                        this.query.result_top_profiles = response.data.result_user;
+                        this.query.result_contents = response.data.result_content;
+                        this.query.result_content_subs = response.data.result_content_sub;
 
                         /** Defino um delay no progresso **/
                         setTimeout(() => {
@@ -442,11 +377,9 @@
         },
 
         /** Executo Determinados Métodos no Momento da Criação do Componente **/
-        created(){
+        created() {
 
-            this.GetTopProfiles();
-            this.GetContents();
-            this.GetContentSubs();
+            this.List();
             console.log('Componente "AdventureDatagrid", montado com sucesso!')
 
         },
