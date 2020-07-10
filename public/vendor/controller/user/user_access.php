@@ -52,25 +52,29 @@ try {
         $row = $user->access($email, md5($password));
 
         /** Verfico se Foi Localizado o usuário **/
-        if (isset($row)) {
+        if (count($row) > 0) {
 
-            /** Converto Minha Array **/
-            $row = $arrayUtf8Encode->utf8Converter($row);
+           foreach ($row as $r){
 
-            /** Defino os Valores da Sessão **/
-            $_SESSION['MYSUPPORT-USER-ID'] = $row->user_id;
-            $_SESSION['MYSUPPORT-USER-NAME'] = $row->user_name;
-            $_SESSION['MYSUPPORT-EMAIL'] = $row->email;
-            $_SESSION['MYSUPPORT-ACCESS-FIRST'] = $row->access_first;
-            $_SESSION['MYSUPPORT-ACCESS-LAST'] = $row->access_last;
-            $_SESSION['MYSUPPORT-DATE-REGISTER'] = $row->date_register;
-            $_SESSION['MYSUPPORT-DATE-UPDATE'] = $row->date_update;
-            $_SESSION['MYSUPPORT-USER-FUNCTION-ID'] = $row->user_function_id;
-            $_SESSION['MYSUPPORT-FUNCTION-NAME'] = $row->function_name;
-            $_SESSION['MYSUPPORT-C-EXECUTE'] = $row->c_execute;
-            $_SESSION['MYSUPPORT-R-EXECUTE'] = $row->r_execute;
-            $_SESSION['MYSUPPORT-U-EXECUTE'] = $row->u_execute;
-            $_SESSION['MYSUPPORT-D-EXECUTE'] = $row->d_execute;
+               /** Converto Minha Array **/
+               $r = $arrayUtf8Encode->utf8Converter($r);
+
+               /** Defino os Valores da Sessão **/
+               $_SESSION['MYSUPPORT-USER-ID'] = $r->user_id;
+               $_SESSION['MYSUPPORT-USER-NAME'] = $r->user_name;
+               $_SESSION['MYSUPPORT-EMAIL'] = $r->email;
+               $_SESSION['MYSUPPORT-ACCESS-FIRST'] = $r->access_first;
+               $_SESSION['MYSUPPORT-ACCESS-LAST'] = $r->access_last;
+               $_SESSION['MYSUPPORT-DATE-REGISTER'] = $r->date_register;
+               $_SESSION['MYSUPPORT-DATE-UPDATE'] = $r->date_update;
+               $_SESSION['MYSUPPORT-USER-FUNCTION-ID'] = $r->user_function_id;
+               $_SESSION['MYSUPPORT-FUNCTION-NAME'] = $r->function_name;
+               $_SESSION['MYSUPPORT-C-EXECUTE'] = $r->c_execute;
+               $_SESSION['MYSUPPORT-R-EXECUTE'] = $r->r_execute;
+               $_SESSION['MYSUPPORT-U-EXECUTE'] = $r->u_execute;
+               $_SESSION['MYSUPPORT-D-EXECUTE'] = $r->d_execute;
+
+           }
 
             /** Result **/
             $result = array(

@@ -80,7 +80,7 @@ class User
         $stmt->execute();
 
         /** Relizo a listagem do resutlado **/
-        return $stmt->fetchObject();
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
     /** Listo todos os registros **/

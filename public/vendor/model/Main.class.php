@@ -68,10 +68,17 @@ class Main
             $str = addslashes($str); //Adiciona barras invertidas a uma string
             $str = htmlspecialchars($str); //Evita ataques XSS
             return utf8_decode($str);
+
         } elseif ((!is_array($str)) && $long == 'S') {
-            return utf8_decode(addslashes($str));
+
+            return utf8_decode(trim($str));
+
         } else {
+
             return $str;
+
         }
+
     }
+
 }
